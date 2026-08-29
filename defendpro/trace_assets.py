@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Vektorisiert Wortmarke und Emblem fuer den Druck.
+"""Vektorisiert Wortmarke und Emblem aus den PNG-Quellen.
 
-    python3 card/trace_assets.py
+    python3 trace_assets.py
 
-Die Bildschirmfassung reicht fuer Papier nicht. Das Emblem liegt mit
-300 px vor, auf der Karte waere das rund 170 dpi. Als Pfad ist es
-aufloesungsunabhaengig.
+Die PNG-Fassung reicht fuer Papier nicht. Das Emblem liegt mit 300 px
+vor, auf der Visitenkarte waere das rund 170 dpi. Als Pfad ist es
+aufloesungsunabhaengig und dient zugleich der Homepage als Maske.
 
 Hinweis zur Polaritaet: potracer fuellt die False-Bereiche der Bitmap.
 Die Maske muss deshalb invertiert uebergeben werden, sonst entsteht ein
@@ -18,7 +18,7 @@ import pathlib
 import potrace
 
 ROOT = pathlib.Path(__file__).resolve().parent
-SRC = ROOT.parent / "assets"
+SRC = ROOT / "assets"
 OUT = ROOT / "assets"
 
 

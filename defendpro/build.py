@@ -9,19 +9,24 @@ keine Abhaengigkeiten ausserhalb der Standardbibliothek.
 
 Platzhalter in den Quellteilen:
 
-    {{LOGO}}         Wortmarke Defend Pro, Lockup mit Emblem
-    {{EMBLEM}}       Emblem gross, Wasserzeichen und Buchcover
-    {{EMBLEM_MARK}}  Emblem klein, Aufzaehlungszeichen
-    {{PORTRAIT}}     Portraet Matthias Gastgeb
-    {{FAVICON}}      Favicon, Emblem auf Navy
+    {{LOGO}}       Wortmarke Defend Pro, Lockup mit Emblem, Vektor
+    {{EMBLEM}}     Emblem, Vektor, Wasserzeichen und Aufzaehlungszeichen
+    {{PORTRAIT}}   Portraet Matthias Gastgeb
+    {{FAVICON}}    Favicon, Emblem auf Navy
+    {{FONT}}       Inter, Variable Font, Latin-Subset
 
 Logo und Emblem werden als CSS-Maske eingesetzt. Ausgewertet wird nur der
 Alphakanal, die Farbe kommt aus dem Designsystem. Dadurch traegt dieselbe
 Datei die weisse Fassung auf Navy und die dunkle auf Bone.
+
+Als Maske dienen die Vektorfassungen aus trace_assets.py. Sie bleiben in
+jeder Groesse scharf, vom 14-px-Aufzaehlungszeichen bis zum
+Wasserzeichen im Hero, und sind zusammen kleiner als die PNG-Quellen.
 """
 
 import base64
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
@@ -30,20 +35,39 @@ OUT = ROOT / "defendpro_homepage.html"
 
 PARTS = ["01_head.html", "02_base.css", "03_components.css", "04_body.html"]
 
-ASSET_MAP = {
-    "LOGO": ("logo.png", "image/png"),
-    "EMBLEM": ("emblem.png", "image/png"),
-    "EMBLEM_MARK": ("emblem_mark.png", "image/png"),
+BINARY = {
     "PORTRAIT": ("portrait.jpg", "image/jpeg"),
     "FAVICON": ("favicon.png", "image/png"),
+    "FONT": ("fonts/inter-latin-wght-normal.woff2", "font/woff2"),
+}
+
+VECTOR = {
+    "LOGO": "logo.svg",
+    "EMBLEM": "emblem.svg",
 }
 
 
-def data_uri(name: str, mime: str) -> str:
+def read(name: str) -> bytes:
     path = ASSETS / name
     if not path.exists():
         raise SystemExit(f"Asset fehlt: {path}")
-    return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode("ascii")
+    return path.read_bytes()
+
+
+def base64_uri(name: str, mime: str) -> str:
+    return f"data:{mime};base64," + base64.b64encode(read(name)).decode("ascii")
+
+
+def svg_uri(name: str) -> str:
+    """SVG als URL-kodierte Data-URI. Kuerzer als base64 und lesbar.
+
+    Die Vektoren tragen fill="currentColor", was fuer die eingebettete
+    Verwendung in der Visitenkarte richtig ist. Als Maske hat die Grafik
+    keinen CSS-Kontext, deshalb hier eine feste deckende Farbe. Fuer die
+    Maske zaehlt ohnehin nur der Alphakanal.
+    """
+    svg = read(name).decode("utf-8").replace("currentColor", "#000")
+    return "data:image/svg+xml," + quote(svg, safe="/:=;,()")
 
 
 def main() -> None:
@@ -55,16 +79,19 @@ def main() -> None:
         chunks.append(path.read_text(encoding="utf-8"))
     html = "\n".join(chunks)
 
-    for key, (name, mime) in ASSET_MAP.items():
+    replacements = {k: base64_uri(n, m) for k, (n, m) in BINARY.items()}
+    replacements.update({k: svg_uri(n) for k, n in VECTOR.items()})
+
+    for key, uri in replacements.items():
         token = "{{" + key + "}}"
         if token not in html:
             print(f"Hinweis: Platzhalter {token} kommt nicht vor")
             continue
-        html = html.replace(token, data_uri(name, mime))
+        html = html.replace(token, uri)
 
-    leftover = [k for k in ASSET_MAP if "{{" + k + "}}" in html]
-    if leftover:
-        raise SystemExit(f"Platzhalter nicht ersetzt: {leftover}")
+    if "{{" in html:
+        rest = sorted({p.split("}}")[0] for p in html.split("{{")[1:]})
+        raise SystemExit(f"Platzhalter nicht ersetzt: {rest}")
 
     OUT.write_text(html, encoding="utf-8")
     print(f"geschrieben: {OUT}")

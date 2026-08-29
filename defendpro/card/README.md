@@ -27,10 +27,23 @@ Sicherheitsabstand verletzt.
 |---|---|
 | `src/karte.html` | Layout und Text, mit Platzhaltern |
 | `build_card.py` | setzt Schriften und Grafiken als base64 ein |
-| `trace_assets.py` | vektorisiert Wortmarke und Emblem |
-| `render_card.js` | PDF, Kontrollbilder, Maßprüfung |
-| `assets/*.svg` | Wortmarke und Emblem als Pfad |
-| `assets/fonts/` | Inter, Latin-Subset, SIL Open Font License 1.1 |
+| `render_card.js` | PDF, Kontrollbilder, Maßprüfung, Schriftkontrolle |
+
+Wortmarke, Emblem und Schriften liegen in `../assets` und werden mit der
+Homepage geteilt. Vektorisiert werden sie mit `python3 trace_assets.py`
+im übergeordneten Ordner.
+
+## Schrift, und warum hier statische Schnitte stehen
+
+Die Homepage verwendet den Variable Font. Für das PDF geht das nicht.
+Chromium bettet bei einem Variable Font das Schriftprogramm nicht ein:
+der Text bleibt zwar Text, der `FontDescriptor` verliert aber seine
+`/FontFile2`-Referenz. Die Druckerei würde die Schrift ersetzen, ohne
+dass es vorher auffällt.
+
+Die Karte bindet deshalb die vier statischen Schnitte 400, 600, 700 und
+800 ein. `render_card.js` zählt nach dem Erzeugen die `/FontFile2`-Einträge
+im PDF und bricht mit Exit 1 ab, wenn keiner da ist.
 
 ## Was die Druckerei bekommt
 

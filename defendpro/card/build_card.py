@@ -9,9 +9,12 @@ externer Request, keine Abhaengigkeiten ausserhalb der Standardbibliothek.
 
 Platzhalter in src/karte.html:
 
-    {{FONT_400}} … {{FONT_800}}   Inter, Latin-Subset, woff2
-    {{EMBLEM_SVG}}                Emblem als Pfad, faerbt ueber currentColor
-    {{LOGO_SVG}}                  Wortmarke als Pfad, ebenso
+    {{FONT_400}} … {{FONT_800}}   Inter, statische Schnitte, woff2
+    {{EMBLEM_SVG}}   Emblem als Pfad, faerbt ueber currentColor
+    {{LOGO_SVG}}     Wortmarke als Pfad, ebenso
+
+Schriften und Vektoren liegen in ../assets und werden mit der Homepage
+geteilt. Geaendert wird nur dort.
 """
 
 import base64
@@ -19,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src" / "karte.html"
-ASSETS = ROOT / "assets"
+ASSETS = ROOT.parent / "assets"   # gemeinsam mit der Homepage
 OUT = ROOT / "karte.html"
 
 FONTS = {f"FONT_{w}": f"fonts/inter-latin-{w}-normal.woff2" for w in (400, 600, 700, 800)}

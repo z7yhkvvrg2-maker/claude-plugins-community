@@ -24,14 +24,25 @@ Keine Abhängigkeiten, nur die Standardbibliothek.
 
 | Datei | Verwendung |
 |---|---|
-| `assets/logo.png` | Wortmarke, Lockup mit Emblem, in Navigation und Footer |
-| `assets/emblem.png` | Emblem groß, Wasserzeichen im Hero und auf dem Buchcover |
-| `assets/emblem_mark.png` | Emblem klein, Aufzählungszeichen und Werteband |
+| `assets/logo.svg` | Wortmarke, Lockup mit Emblem, in Navigation und Footer |
+| `assets/emblem.svg` | Emblem, Wasserzeichen, Aufzählungszeichen, Buchcover |
 | `assets/portrait.jpg` | Porträt, Abschnitt 10 |
 | `assets/favicon.png` | Favicon, Emblem auf Navy |
+| `assets/fonts/` | Inter, SIL Open Font License 1.1 |
+| `assets/logo.png`, `assets/emblem.png` | PNG-Quellen, nur Vorlage für `trace_assets.py` |
 
-Logo und Emblem liegen als CSS-Maske über den Custom Properties `--logo`,
-`--emblem` und `--emblem-mark`. Ausgewertet wird allein der Alphakanal,
+Die beiden SVG entstehen aus den PNG-Quellen:
+
+```bash
+python3 trace_assets.py
+```
+
+Nötig nur, wenn sich das Logo ändert. Als Pfad bleibt das Emblem in jeder
+Größe scharf, vom 14-px-Aufzählungszeichen bis zum Wasserzeichen im Hero,
+und dient zugleich der Visitenkarte als Druckvorlage.
+
+Logo und Emblem liegen als CSS-Maske über die Custom Properties `--logo`
+und `--emblem`. Ausgewertet wird allein der Alphakanal,
 die Farbe kommt aus dem Designsystem. Dieselbe Datei trägt dadurch die
 weiße Fassung auf Navy und die dunkle auf Bone, und die
 Aufzählungszeichen nehmen auf Bone automatisch `--gold-d`.
@@ -99,9 +110,14 @@ der Seite gelb hinterlegt, damit keiner übersehen wird.
 **Formular.** Läuft als `mailto`-Fallback. Für den Betrieb `action` auf
 Formspree oder das WPForms-Endpoint umstellen, `method="post"` bleibt.
 
-**Schrift.** Inter wird über den System-Stack angesprochen. Bei einer
-Übernahme nach WordPress die Schrift selbst hosten, damit die Darstellung
-stabil bleibt und keine Verbindung zu Dritten entsteht.
+**Schrift.** Inter liegt als Variable Font eingebettet in der Datei,
+Achse `wght` 100 bis 900. Dadurch treffen auch die Zwischenschnitte 650
+und 750 aus dem Designsystem exakt. Es entsteht keine Verbindung zu
+Google Fonts und keine Abhängigkeit davon, welche Schriften auf dem Gerät
+des Besuchers installiert sind.
+
+Die Visitenkarte verwendet bewusst die vier statischen Schnitte im selben
+Ordner. Grund steht in `card/README.md`.
 
 **Assets.** Alle Bilder liegen als base64 in der Datei. Die Seite lädt
 nichts nach. `deep.js` meldet jeden externen Request.

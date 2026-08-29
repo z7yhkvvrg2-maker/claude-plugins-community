@@ -204,8 +204,8 @@
   height:16px;
   flex:none;
   background-color:var(--gold);
-  -webkit-mask:var(--emblem-mark) no-repeat center / contain;
-          mask:var(--emblem-mark) no-repeat center / contain;
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
 }
 .band-note{
   flex:1 1 260px;
@@ -251,7 +251,9 @@
 .panel li:first-child{border-top:0;padding-top:0}
 .panel li:last-child{padding-bottom:0}
 /* Aufzaehlungszeichen ist das Emblem, nicht mehr ein Strich.
-   Auf Bone traegt es gold-d, weil Gold dort zu wenig Kontrast hat. */
+   Auf Bone traegt es gold-d, weil Gold dort zu wenig Kontrast hat.
+   Als Vektor traegt dieselbe Datei das 14-px-Zeichen und das
+   Wasserzeichen im Hero, ohne zweite Aufloesungsstufe. */
 .panel li::before{
   content:"";
   position:absolute;
@@ -260,8 +262,8 @@
   width:14px;
   height:15px;
   background-color:var(--gold-d);
-  -webkit-mask:var(--emblem-mark) no-repeat center / contain;
-          mask:var(--emblem-mark) no-repeat center / contain;
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
 }
 .panel li:first-child::before{top:5px}
 
@@ -671,8 +673,8 @@
   width:14px;
   height:15px;
   background-color:var(--gold);
-  -webkit-mask:var(--emblem-mark) no-repeat center / contain;
-          mask:var(--emblem-mark) no-repeat center / contain;
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
 }
 .contact-direct{
   margin-top:26px;

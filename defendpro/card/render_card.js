@@ -38,8 +38,23 @@ const DPI = 600;
       preferCSSPageSize: true,
     });
     await page.close();
-    const kb = fs.statSync(path.join(DIR, 'defendpro_visitenkarte.pdf')).size / 1024;
+
+    // Ein Druck-PDF muss seine Schriften mitbringen, sonst ersetzt die
+    // Druckerei sie. Chromium bettet statische Schnitte als /FontFile2
+    // ein, bei einem Variable Font unterbleibt das kommentarlos: der
+    // Text bleibt Text, der FontDescriptor verliert aber das
+    // Schriftprogramm. Deshalb hier eine harte Kontrolle.
+    const pdf = fs.readFileSync(path.join(DIR, 'defendpro_visitenkarte.pdf'));
+    const embedded = pdf.toString('latin1').split('/FontFile2').length - 1;
+    const kb = pdf.length / 1024;
     console.log(`PDF        91 x 61 mm, 2 Seiten, ${kb.toFixed(1)} KB`);
+    if (embedded === 0) {
+      console.error('FEHLER: keine Schrift eingebettet. Karte nicht druckfaehig.');
+      console.error('  Ursache meist ein Variable Font. Statische Schnitte verwenden.');
+      await browser.close();
+      process.exit(1);
+    }
+    console.log(`Schriften  ${embedded} Subsets als /FontFile2 eingebettet`);
   }
 
   // --- Kontrollbilder -------------------------------------------------

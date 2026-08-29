@@ -4,6 +4,21 @@
    Gold liegt nur auf Navy als Textfarbe. Auf Bone gilt gold-d.
    ============================================================ */
 
+/* Inter, selbst gehostet und in die Datei eingebettet. SIL Open Font
+   License 1.1, Lizenztext unter assets/fonts/LICENSE.
+   Variable Font ueber die Achse wght 100 bis 900, deshalb treffen auch
+   die Zwischenschnitte 650 und 750 exakt. Ein Aufruf ueber den
+   System-Stack traf je nach Geraet eine andere Schrift, und eine
+   Einbindung ueber Google Fonts wuerde eine Verbindung zu Dritten
+   herstellen. Beides entfaellt. */
+@font-face{
+  font-family:"Inter Variable";
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  src:url({{FONT}}) format("woff2-variations");
+}
+
 :root{
   --navy:#172A4E;
   --navy-d:#0F1E3A;
@@ -19,7 +34,7 @@
   --line-dark:rgba(255,255,255,.16);
   --line-light:rgba(23,42,78,.14);
 
-  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sans:"Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --serif:Georgia,Gelasio,"Iowan Old Style","Times New Roman",serif;
 
   /* Assets. build.py setzt hier base64 ein.
@@ -28,7 +43,6 @@
      Datei weiss auf Navy und dunkel auf Bone tragen kann. */
   --logo:url("{{LOGO}}");
   --emblem:url("{{EMBLEM}}");
-  --emblem-mark:url("{{EMBLEM_MARK}}");
 
   --r:3px;
   --nav-h:64px;
