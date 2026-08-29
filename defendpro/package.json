@@ -1,0 +1,13 @@
+{
+  "name": "defendpro-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pruefskripte fuer die Defend Pro Homepage",
+  "scripts": {
+    "check": "node deep.js",
+    "shots": "node shot.js"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

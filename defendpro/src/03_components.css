@@ -1,0 +1,870 @@
+/* ============================================================
+   DEFEND PRO . Komponenten
+   Radius 3px. Keine Schatten. Trennlinien statt Karten, wo möglich.
+   ============================================================ */
+
+/* ---------- Logo ---------- */
+
+.logo{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:inherit;
+  line-height:1;
+}
+.logo svg{width:26px;height:26px;flex:none}
+.logo .word{
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.logo .word .pro{
+  color:var(--gold);
+  font-weight:600;
+  letter-spacing:.14em;
+  margin-left:.35em;
+}
+.on-light .logo .word .pro{color:var(--gold-d)}
+
+/* ---------- Navigation ---------- */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--navy);
+  border-bottom:1px solid var(--line-dark);
+  color:var(--on-dark);
+}
+.nav-in{
+  height:var(--nav-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.nav-links{
+  display:none;
+  align-items:center;
+  gap:26px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.nav-links a{
+  display:inline-flex;
+  align-items:center;
+  min-height:36px;
+  font-size:13.5px;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:var(--on-dark-2);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color .16s ease,border-color .16s ease;
+}
+.nav-links a:hover{color:var(--on-dark);border-bottom-color:var(--gold)}
+.nav-cta{display:none}
+
+@media (min-width:900px){
+  .nav-links{display:flex}
+  .nav-cta{display:inline-flex}
+}
+
+/* ---------- Buttons ---------- */
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  min-height:48px;
+  padding:13px 24px;
+  border-radius:var(--r);
+  border:1px solid transparent;
+  font-family:var(--sans);
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:-.005em;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background-color .16s ease,color .16s ease,border-color .16s ease;
+}
+.btn-gold{background:var(--gold);color:var(--navy-d);border-color:var(--gold)}
+.btn-gold:hover{background:#C7B071;border-color:#C7B071}
+
+.btn-ghost{background:transparent;color:var(--on-dark);border-color:rgba(255,255,255,.38)}
+.btn-ghost:hover{border-color:var(--on-dark);background:rgba(255,255,255,.06)}
+
+.btn-navy{background:var(--navy);color:var(--on-dark);border-color:var(--navy)}
+.btn-navy:hover{background:var(--navy-l);border-color:var(--navy-l)}
+
+.btn-sm{min-height:40px;padding:9px 18px;font-size:13.5px}
+
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Textlink mit Pfeil */
+.tlink{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:32px;
+  font-weight:700;
+  font-size:14.5px;
+  text-decoration:none;
+  color:var(--gold-d);
+  border-bottom:1px solid rgba(138,116,51,.4);
+}
+.tlink:hover{border-bottom-color:var(--gold-d)}
+.s-navy .tlink,.s-navyd .tlink{color:var(--gold);border-bottom-color:rgba(184,160,92,.45)}
+.s-navy .tlink:hover,.s-navyd .tlink:hover{border-bottom-color:var(--gold)}
+
+/* ---------- Hero ---------- */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding-top:clamp(56px,7vw,86px);
+  padding-bottom:clamp(56px,7vw,86px);
+}
+.hero-watermark{
+  position:absolute;
+  right:-70px;
+  top:50%;
+  transform:translateY(-50%);
+  width:min(560px,72vw);
+  opacity:.12;
+  pointer-events:none;
+  color:var(--gold);
+}
+.hero-in{position:relative;z-index:1;max-width:760px}
+.hero h1{margin-bottom:20px}
+.hero-sub{
+  font-size:clamp(18px,1.9vw,23px);
+  font-weight:600;
+  color:var(--on-dark);
+  letter-spacing:-.015em;
+  margin:0 0 26px;
+  line-height:1.34;
+}
+.hero-lead{max-width:56ch}
+.hero .btn-row{margin-top:30px}
+.hero-note{
+  margin-top:14px;
+  font-size:13.5px;
+  color:var(--on-dark-2);
+}
+
+/* Belege im Hero */
+.proof{
+  margin-top:clamp(38px,5vw,54px);
+  padding-top:26px;
+  border-top:1px solid var(--line-dark);
+  display:grid;
+  gap:18px 30px;
+  grid-template-columns:1fr;
+  position:relative;
+  z-index:1;
+}
+@media (min-width:620px){.proof{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.proof{grid-template-columns:repeat(4,1fr)}}
+.proof li{
+  list-style:none;
+  margin:0;
+  font-size:14px;
+  line-height:1.45;
+  font-weight:600;
+  color:var(--on-dark);
+  padding-left:16px;
+  border-left:2px solid var(--gold);
+}
+.proof ul{margin:0;padding:0}
+
+/* ---------- Werteband ---------- */
+
+.band{padding-top:clamp(30px,4vw,42px);padding-bottom:clamp(30px,4vw,42px)}
+.band-in{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px 30px;
+}
+.band-item{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:clamp(14px,1.5vw,17px);
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--on-dark);
+}
+.band-item .dot{width:6px;height:6px;background:var(--gold);flex:none;border-radius:50%}
+.band-note{
+  flex:1 1 260px;
+  font-size:14px;
+  color:var(--on-dark-2);
+  margin:0;
+  min-width:0;
+}
+
+/* ---------- Zweispaltiges Sektionsraster ---------- */
+
+.grid-2{
+  display:grid;
+  gap:clamp(32px,4.5vw,60px);
+  grid-template-columns:1fr;
+  align-items:start;
+}
+@media (min-width:900px){
+  .grid-2{grid-template-columns:1fr 1fr}
+  .grid-2.lean{grid-template-columns:1.05fr .95fr}
+}
+
+/* ---------- Panel (Anlässe) ---------- */
+
+.panel{
+  background:var(--bone-d);
+  border:1px solid var(--line-light);
+  border-radius:var(--r);
+  padding:clamp(22px,3vw,32px);
+}
+.s-boned .panel{background:var(--bone)}
+.panel h3{margin-bottom:18px;font-size:15px;letter-spacing:.02em}
+.panel ul{list-style:none;margin:0;padding:0}
+.panel li{
+  padding:14px 0 14px 26px;
+  border-top:1px solid var(--line-light);
+  font-size:15.5px;
+  line-height:1.55;
+  color:var(--ink);
+  position:relative;
+  margin:0;
+}
+.panel li:first-child{border-top:0;padding-top:0}
+.panel li:last-child{padding-bottom:0}
+.panel li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:22px;
+  width:10px;
+  height:1px;
+  background:var(--gold-d);
+}
+.panel li:first-child::before{top:8px}
+
+/* ---------- Leistungsbausteine ---------- */
+
+.modules{
+  display:grid;
+  gap:0;
+  grid-template-columns:1fr;
+  margin-top:clamp(30px,4vw,44px);
+  border-top:1px solid var(--line-light);
+}
+@media (min-width:880px){
+  .modules{grid-template-columns:repeat(3,1fr);gap:0 clamp(28px,3.4vw,44px)}
+}
+.module{
+  padding:clamp(26px,3vw,34px) 0;
+  border-bottom:1px solid var(--line-light);
+  display:flex;
+  flex-direction:column;
+}
+@media (min-width:880px){
+  .module{border-bottom:0}
+}
+.module-no{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2em;
+  color:var(--gold-d);
+  margin-bottom:14px;
+}
+.module h3{margin-bottom:10px}
+.module p{font-size:15.5px;margin-bottom:1em}
+.module-result{
+  margin-top:auto;
+  padding-top:16px;
+  border-top:1px solid var(--line-light);
+  font-size:14.5px;
+  line-height:1.5;
+  font-weight:650;
+  color:var(--gold-d);
+}
+.module-result span{
+  display:block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-2);
+  margin-bottom:5px;
+}
+
+.disclaimer{
+  margin-top:clamp(26px,3vw,36px);
+  padding:16px 18px;
+  background:var(--bone);
+  border-left:2px solid var(--gold-d);
+  border-radius:0 var(--r) var(--r) 0;
+  font-size:14.5px;
+  line-height:1.55;
+  color:var(--ink-2);
+}
+.s-bone .disclaimer{background:var(--bone-d)}
+
+/* ---------- Bereiche ---------- */
+
+.areas{
+  display:grid;
+  gap:0;
+  grid-template-columns:1fr;
+  margin-top:clamp(30px,4vw,44px);
+}
+@media (min-width:880px){
+  .areas{grid-template-columns:repeat(3,1fr);gap:clamp(28px,3.4vw,44px)}
+}
+.area{
+  padding:clamp(24px,3vw,30px) 0;
+  border-top:2px solid var(--navy);
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.area-name{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--navy);
+  margin-bottom:14px;
+}
+.area h3{font-size:19px;margin-bottom:12px}
+.area p{font-size:15.5px}
+.area-who{
+  margin-top:auto;
+  padding-top:14px;
+  border-top:1px solid var(--line-light);
+  font-size:13.5px;
+  line-height:1.55;
+  color:var(--ink-2);
+}
+.area-who b{
+  display:block;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--gold-d);
+  margin-bottom:5px;
+  font-weight:700;
+}
+
+/* ---------- Ebenenmodell ---------- */
+
+.levels{
+  display:grid;
+  gap:0;
+  grid-template-columns:1fr;
+  margin-top:clamp(30px,4vw,44px);
+  border-top:1px solid var(--line-dark);
+}
+@media (min-width:880px){
+  .levels{grid-template-columns:repeat(3,1fr);gap:0 clamp(28px,3.4vw,44px)}
+}
+.level{
+  padding:clamp(26px,3vw,34px) 0;
+  border-bottom:1px solid var(--line-dark);
+}
+@media (min-width:880px){.level{border-bottom:0}}
+.level-no{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2em;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.level h3{margin-bottom:10px;color:var(--on-dark)}
+.level p{font-size:15.5px;color:var(--on-dark-2)}
+
+/* ---------- Ablauf ---------- */
+
+.steps{
+  list-style:none;
+  margin:clamp(30px,4vw,44px) 0 0;
+  padding:0;
+  counter-reset:step;
+}
+.step{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:18px 20px;
+  padding:clamp(22px,2.6vw,28px) 0;
+  border-top:1px solid var(--line-light);
+  margin:0;
+}
+.step:last-child{border-bottom:1px solid var(--line-light)}
+.step-no{
+  counter-increment:step;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.14em;
+  color:var(--gold-d);
+  padding-top:3px;
+  min-width:34px;
+}
+.step-no::before{content:"0" counter(step)}
+.step h3{margin-bottom:8px}
+.step p{font-size:15.5px}
+.step-meta{
+  display:inline-block;
+  margin-top:10px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--navy);
+  background:var(--bone-d);
+  border:1px solid var(--line-light);
+  border-radius:var(--r);
+  padding:5px 11px;
+}
+.s-boned .step-meta{background:var(--bone)}
+
+/* Die linke Spalte im Ablauf ist kuerzer als die Schrittliste.
+   Sticky nutzt den Leerraum, statt ihn stehen zu lassen. */
+@media (min-width:900px){
+  #ablauf .grid-2 > div:first-child{
+    position:sticky;
+    top:calc(var(--nav-h) + 32px);
+  }
+}
+
+/* ---------- Formate ---------- */
+
+.formats{
+  display:grid;
+  gap:0;
+  grid-template-columns:1fr;
+  margin-top:clamp(30px,4vw,44px);
+  border-top:1px solid var(--line-light);
+}
+@media (min-width:700px){.formats{grid-template-columns:repeat(2,1fr);gap:0 clamp(28px,3.4vw,44px)}}
+@media (min-width:1000px){.formats{grid-template-columns:repeat(4,1fr)}}
+.format{
+  padding:clamp(22px,2.6vw,28px) 0;
+  border-bottom:1px solid var(--line-light);
+}
+@media (min-width:1000px){.format{border-bottom:0}}
+.format h3{font-size:17px;margin-bottom:6px}
+.format .dur{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold-d);
+  margin-bottom:12px;
+}
+.format p{font-size:14.5px}
+
+/* ---------- Fragen ---------- */
+
+.faq{margin-top:clamp(30px,4vw,44px);border-top:1px solid var(--line-light)}
+.faq details{border-bottom:1px solid var(--line-light)}
+.faq summary{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  padding:20px 0;
+  min-height:48px;
+  cursor:pointer;
+  font-size:16.5px;
+  font-weight:700;
+  letter-spacing:-.012em;
+  color:var(--ink);
+  list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"";
+  flex:none;
+  width:13px;
+  height:13px;
+  margin-top:7px;
+  border-right:2px solid var(--gold-d);
+  border-bottom:2px solid var(--gold-d);
+  transform:rotate(45deg);
+  transition:transform .18s ease;
+}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq .answer{padding:0 0 22px;max-width:70ch}
+.faq .answer p{font-size:15.5px}
+
+/* ---------- Person ---------- */
+
+.person-grid{
+  display:grid;
+  gap:clamp(30px,4.5vw,54px);
+  grid-template-columns:1fr;
+  align-items:start;
+}
+@media (min-width:860px){
+  .person-grid{grid-template-columns:minmax(240px,320px) 1fr}
+}
+.portrait{
+  position:relative;
+  aspect-ratio:640/800;
+  background:var(--navy-l);
+  border:1px solid var(--line-dark);
+  border-radius:var(--r);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.portrait img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.portrait .ph{
+  width:52%;
+  opacity:.12;
+  color:var(--gold);
+}
+.portrait figcaption{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  padding:14px 16px;
+  background:linear-gradient(to top,rgba(15,30,58,.92),rgba(15,30,58,0));
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:700;
+  color:var(--on-dark);
+}
+.person-bio p{font-size:16.5px}
+.creds{
+  display:grid;
+  gap:0;
+  grid-template-columns:1fr;
+  margin-top:clamp(26px,3.4vw,36px);
+  border-top:1px solid var(--line-dark);
+}
+@media (min-width:640px){.creds{grid-template-columns:repeat(2,1fr);gap:0 clamp(24px,3vw,36px)}}
+.cred{
+  padding:18px 0;
+  border-bottom:1px solid var(--line-dark);
+}
+@media (min-width:640px){
+  .cred:nth-last-child(-n+2){border-bottom:0}
+}
+.cred b{
+  display:block;
+  font-size:15px;
+  font-weight:700;
+  color:var(--on-dark);
+  margin-bottom:4px;
+  letter-spacing:-.01em;
+}
+.cred span{font-size:13.5px;color:var(--on-dark-2);line-height:1.5;display:block}
+
+/* ---------- Buch ---------- */
+
+.ed{font-family:var(--serif)}
+.book-grid{
+  display:grid;
+  gap:clamp(26px,4vw,48px);
+  grid-template-columns:1fr;
+  align-items:start;
+}
+@media (min-width:820px){.book-grid{grid-template-columns:1fr 1.25fr}}
+.book-cover{
+  aspect-ratio:2/3;
+  max-width:230px;
+  background:var(--navy);
+  border-radius:var(--r);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:24px 20px;
+  color:var(--on-dark);
+}
+.book-cover .bt{
+  font-family:var(--serif);
+  font-size:26px;
+  line-height:1.15;
+  font-weight:400;
+  font-style:italic;
+}
+.book-cover .ba{
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--on-dark-2);
+  font-weight:700;
+}
+/* Nur die Absaetze, nicht die Ueberschrift. Sonst schlaegt diese Regel
+   die h2-Groesse, weil sie spezifischer ist. */
+.book-body .ed p{font-size:17.5px;line-height:1.66;color:var(--ink-2)}
+.book-body h2.ed{font-weight:400;font-style:italic;letter-spacing:-.015em}
+.book-meta{
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid var(--line-light);
+  font-size:13.5px;
+  color:var(--ink-2);
+}
+
+/* ---------- Kontakt ---------- */
+
+.contact-grid{
+  display:grid;
+  gap:clamp(34px,4.5vw,58px);
+  grid-template-columns:1fr;
+  align-items:start;
+}
+@media (min-width:920px){.contact-grid{grid-template-columns:.9fr 1.1fr}}
+
+.promise{
+  list-style:none;
+  margin:24px 0 0;
+  padding:0;
+}
+.promise li{
+  padding:11px 0 11px 24px;
+  border-top:1px solid var(--line-dark);
+  font-size:15px;
+  color:var(--on-dark-2);
+  position:relative;
+  margin:0;
+}
+.promise li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:19px;
+  width:10px;
+  height:1px;
+  background:var(--gold);
+}
+.contact-direct{
+  margin-top:26px;
+  padding-top:20px;
+  border-top:1px solid var(--line-dark);
+  font-size:15px;
+}
+.contact-direct a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,160,92,.45)}
+.contact-direct a:hover{border-bottom-color:var(--gold)}
+.contact-direct div{margin-bottom:8px}
+
+/* ---------- Formular ---------- */
+
+.form{
+  background:var(--navy-l);
+  border:1px solid var(--line-dark);
+  border-radius:var(--r);
+  padding:clamp(22px,3vw,32px);
+}
+.field{margin-bottom:16px}
+.field:last-of-type{margin-bottom:0}
+.field label{
+  display:block;
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--on-dark);
+  margin-bottom:7px;
+}
+.req{color:var(--gold);margin-left:3px}
+.field input,.field select,.field textarea{
+  width:100%;
+  min-height:48px;
+  padding:12px 14px;
+  background:var(--navy-d);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:var(--r);
+  color:var(--on-dark);
+  font-family:var(--sans);
+  font-size:15.5px;
+  line-height:1.5;
+}
+.field textarea{min-height:118px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#8E9AB0}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--gold);
+  outline:2px solid var(--gold);
+  outline-offset:1px;
+}
+.field select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23B8A05C' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  background-size:12px 8px;
+  padding-right:38px;
+}
+.field-row{display:grid;gap:16px;grid-template-columns:1fr}
+@media (min-width:560px){.field-row{grid-template-columns:1fr 1fr}}
+
+.consent{
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  margin:20px 0;
+  padding-top:18px;
+  border-top:1px solid var(--line-dark);
+}
+.consent input{
+  flex:none;
+  width:24px;
+  height:24px;
+  min-height:0;
+  margin-top:1px;
+  accent-color:var(--gold);
+  padding:0;
+}
+.consent label{
+  font-size:13.5px;
+  line-height:1.55;
+  font-weight:400;
+  letter-spacing:0;
+  text-transform:none;
+  color:var(--on-dark-2);
+  margin:0;
+}
+.consent label a{color:var(--gold)}
+.form .btn{width:100%}
+.form-note{
+  margin-top:14px;
+  font-size:12.5px;
+  line-height:1.55;
+  color:var(--on-dark-2);
+}
+
+/* ---------- Rechtliches ---------- */
+
+.legal-grid{
+  display:grid;
+  gap:clamp(30px,4vw,52px);
+  grid-template-columns:1fr;
+  margin-top:clamp(26px,3.4vw,38px);
+}
+@media (min-width:820px){.legal-grid{grid-template-columns:1fr 1fr}}
+.legal h3{font-size:15px;letter-spacing:.02em;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line-light)}
+.legal h4{font-size:13.5px;margin:18px 0 6px}
+.legal p,.legal li{font-size:14px;line-height:1.6;color:var(--ink-2)}
+.legal a{color:var(--gold-d)}
+.todo{
+  background:#FBF3D9;
+  border:1px dashed var(--gold-d);
+  border-radius:var(--r);
+  padding:1px 7px;
+  font-weight:700;
+  color:#6E5A22;
+  font-size:.94em;
+  white-space:nowrap;
+}
+
+/* ---------- Footer ---------- */
+
+.foot{
+  padding-top:clamp(44px,5vw,64px);
+  padding-bottom:clamp(30px,4vw,44px);
+}
+.foot-grid{
+  display:grid;
+  gap:clamp(28px,3.4vw,40px);
+  grid-template-columns:1fr;
+}
+@media (min-width:640px){.foot-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:960px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.foot h4{
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+  font-weight:700;
+}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot li{margin-bottom:9px}
+.foot a{
+  display:inline-flex;
+  align-items:center;
+  min-height:26px;
+  font-size:14px;
+  color:var(--on-dark-2);
+  text-decoration:none;
+}
+.foot a:hover{color:var(--on-dark)}
+.foot p{font-size:14px;color:var(--on-dark-2)}
+.foot-bottom{
+  margin-top:clamp(32px,4vw,46px);
+  padding-top:22px;
+  border-top:1px solid var(--line-dark);
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 24px;
+  justify-content:space-between;
+  font-size:12.5px;
+  color:var(--on-dark-2);
+}
+
+/* ---------- Mobiler Dauer-CTA ---------- */
+
+.mcta{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:120;
+  background:var(--navy-d);
+  border-top:1px solid var(--line-dark);
+  padding:10px var(--pad) calc(10px + env(safe-area-inset-bottom));
+  display:flex;
+  align-items:center;
+  gap:14px;
+  justify-content:space-between;
+}
+.mcta span{
+  font-size:13px;
+  font-weight:700;
+  color:var(--on-dark);
+  letter-spacing:-.01em;
+  line-height:1.3;
+}
+.mcta .btn{flex:none}
+@media (min-width:900px){.mcta{display:none}}
+@media (max-width:899px){body{padding-bottom:76px}}
+
+/* ---------- Klickziele in Fliesstext ----------
+   WCAG 2.5.8 nimmt Links im Satz von der Mindestgroesse aus.
+   Die zusaetzliche Hoehe kostet nichts und macht die Regel
+   trotzdem erfuellbar. Der negative Rand haelt den Zeilenabstand. */
+
+.legal a,
+.contact-direct a,
+.consent label a,
+.book-meta a{
+  display:inline-block;
+  padding-block:4px;
+  margin-block:-4px;
+}
+
+/* ---------- Druck ---------- */
+
+@media print{
+  .nav,.mcta,.hero-watermark,.form,.btn,.skip{display:none !important}
+  body{background:#fff;color:#000;font-size:11pt;padding-bottom:0}
+  section{padding:14pt 0;break-inside:auto}
+  .s-navy,.s-navyd{background:#fff !important;color:#000 !important}
+  .s-navy h1,.s-navy h2,.s-navy h3,.s-navy h4,
+  .s-navyd h1,.s-navyd h2,.s-navyd h3,.s-navyd h4,
+  .s-navy p,.s-navyd p,.level p,.cred span,.foot p,.foot a{color:#000 !important}
+  .eyebrow,.level-no,.foot h4{color:#6E5A22 !important}
+  .eyebrow::before{background:#6E5A22 !important}
+  h1,h2,h3{break-after:avoid}
+  .portrait,.book-cover{border:1px solid #999}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#444}
+  .faq details{break-inside:avoid}
+  .faq .answer{display:block !important}
+}

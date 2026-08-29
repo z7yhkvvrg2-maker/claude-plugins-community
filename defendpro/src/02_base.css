@@ -1,0 +1,193 @@
+/* ============================================================
+   DEFEND PRO . Basis
+   Farbwerte und Typografie nach Designsystem.
+   Gold liegt nur auf Navy als Textfarbe. Auf Bone gilt gold-d.
+   ============================================================ */
+
+:root{
+  --navy:#172A4E;
+  --navy-d:#0F1E3A;
+  --navy-l:#1E355F;
+  --bone:#FAF7F2;
+  --bone-d:#F1ECE3;
+  --gold:#B8A05C;
+  --gold-d:#8A7433;
+  --ink:#172A4E;
+  --ink-2:#4A5872;
+  --on-dark:#FFFFFF;
+  --on-dark-2:#C3CBD9;
+  --line-dark:rgba(255,255,255,.16);
+  --line-light:rgba(23,42,78,.14);
+
+  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:Georgia,Gelasio,"Iowan Old Style","Times New Roman",serif;
+
+  --r:3px;
+  --nav-h:64px;
+  --pad:clamp(20px,5vw,40px);
+  --sec-y:clamp(64px,8.5vw,116px);
+  --wrap:1140px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bone);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16.5px;
+  line-height:1.68;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+img{max-width:100%;height:auto;display:block}
+
+h1,h2,h3,h4{
+  margin:0 0 .5em;
+  line-height:1.14;
+  letter-spacing:-.022em;
+  text-wrap:balance;
+}
+
+h1{
+  font-size:clamp(33px,5.2vw,58px);
+  font-weight:800;
+  letter-spacing:-.03em;
+  line-height:1.06;
+}
+
+h2{
+  font-size:clamp(26px,3.6vw,40px);
+  font-weight:750;
+  line-height:1.1;
+}
+
+h3{font-size:clamp(18px,1.7vw,21px);font-weight:700;letter-spacing:-.012em}
+h4{font-size:16px;font-weight:700;letter-spacing:-.008em}
+
+p{margin:0 0 1.05em}
+p:last-child{margin-bottom:0}
+
+a{color:inherit}
+
+ul,ol{margin:0 0 1.05em;padding-left:1.15em}
+li{margin-bottom:.4em}
+li:last-child{margin-bottom:0}
+
+strong,b{font-weight:700}
+
+::selection{background:var(--gold);color:var(--navy-d)}
+
+/* ---------- Fokus ---------- */
+
+:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+  border-radius:var(--r);
+}
+.on-light :focus-visible{outline-color:var(--gold-d)}
+
+/* ---------- Layout ---------- */
+
+.wrap{
+  width:100%;
+  max-width:var(--wrap);
+  margin:0 auto;
+  padding-left:var(--pad);
+  padding-right:var(--pad);
+}
+
+section{
+  padding-top:var(--sec-y);
+  padding-bottom:var(--sec-y);
+  scroll-margin-top:96px;
+}
+
+.s-navy{background:var(--navy);color:var(--on-dark)}
+.s-navyd{background:var(--navy-d);color:var(--on-dark)}
+.s-bone{background:var(--bone);color:var(--ink)}
+.s-boned{background:var(--bone-d);color:var(--ink)}
+
+.s-navy p,.s-navyd p{color:var(--on-dark-2)}
+.s-navy h1,.s-navy h2,.s-navy h3,.s-navy h4,
+.s-navyd h1,.s-navyd h2,.s-navyd h3,.s-navyd h4{color:var(--on-dark)}
+
+.s-bone p,.s-boned p{color:var(--ink-2)}
+
+/* ---------- Eyebrow ---------- */
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  margin:0 0 22px;
+  color:var(--gold);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:2px;
+  background:var(--gold);
+  flex:none;
+}
+.s-bone .eyebrow,.s-boned .eyebrow{color:var(--gold-d)}
+.s-bone .eyebrow::before,.s-boned .eyebrow::before{background:var(--gold-d)}
+
+/* ---------- Lead ---------- */
+
+.lead{
+  font-size:clamp(17px,1.45vw,19.5px);
+  line-height:1.6;
+}
+
+.measure{max-width:62ch}
+.measure-s{max-width:52ch}
+
+/* ---------- Trennlinien ---------- */
+
+.rule{
+  height:1px;
+  background:var(--line-light);
+  border:0;
+  margin:0;
+}
+.s-navy .rule,.s-navyd .rule{background:var(--line-dark)}
+
+/* ---------- Skip Link ---------- */
+
+.skip{
+  position:absolute;
+  left:-9999px;
+  top:0;
+  z-index:200;
+  background:var(--gold);
+  color:var(--navy-d);
+  padding:12px 20px;
+  font-weight:700;
+  border-radius:var(--r);
+}
+.skip:focus{left:12px;top:12px}
+
+/* ---------- Reduced Motion ---------- */
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+}
