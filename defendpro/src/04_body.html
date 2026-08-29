@@ -4,21 +4,10 @@
 
 <a class="skip" href="#inhalt">Zum Inhalt springen</a>
 
-<!-- Emblem einmal definiert, dreimal verwendet. Kein externer Request. -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="dp-shield" viewBox="0 0 64 64">
-    <path d="M32 6 55 15v18c0 14-10 22-23 27C19 55 9 47 9 33V15z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M21 33.5 29 41.5 44 25" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-</svg>
-
 <!-- ============ 00 . NAVIGATION ============ -->
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="logo" href="#start" aria-label="Defend Pro, zur Startseite">
-      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#dp-shield"/></svg>
-      <span class="word">Defend<span class="pro">Pro</span></span>
-    </a>
+    <a class="logo" href="#start" aria-label="Defend Pro, zur Startseite"><span class="vh">Defend Pro</span></a>
     <nav aria-label="Hauptnavigation">
       <ul class="nav-links">
         <li><a href="#situation">Situation</a></li>
@@ -37,7 +26,7 @@
 
 <!-- ============ 01 . HERO ============ -->
 <section id="start" class="s-navy hero">
-  <svg class="hero-watermark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#dp-shield"/></svg>
+  <div class="hero-watermark" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-in">
       <p class="eyebrow">Prävention · Deeskalation · Eigensicherung</p>
@@ -316,17 +305,8 @@
     <h2>Matthias Gastgeb</h2>
 
     <div class="person-grid" style="margin-top:clamp(28px,3.6vw,42px)">
-      <!--
-        PORTRÄT
-        Sobald portrait_gastgeb_sw_640x800.jpg vorliegt, diese figure ersetzen durch:
-        <figure class="portrait">
-          <img src="data:image/jpeg;base64,..." width="640" height="800"
-               alt="Porträt von Matthias Gastgeb">
-          <figcaption>Matthias Gastgeb, Wien</figcaption>
-        </figure>
-      -->
       <figure class="portrait">
-        <svg class="ph" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#dp-shield"/></svg>
+        <img src="{{PORTRAIT}}" width="640" height="800" alt="Porträt von Matthias Gastgeb">
         <figcaption>Matthias Gastgeb, Wien</figcaption>
       </figure>
 
@@ -539,10 +519,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="logo" href="#start" style="margin-bottom:16px">
-          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#dp-shield"/></svg>
-          <span class="word">Defend<span class="pro">Pro</span></span>
-        </a>
+        <a class="logo" href="#start" aria-label="Defend Pro, zur Startseite"><span class="vh">Defend Pro</span></a>
         <p>Training und Beratung zu Prävention, Deeskalation und Eigensicherung. Inhouse in ganz Österreich.</p>
       </div>
       <div>

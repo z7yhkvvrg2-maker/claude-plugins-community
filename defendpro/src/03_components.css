@@ -5,28 +5,18 @@
 
 /* ---------- Logo ---------- */
 
+/* Wortmarke als Maske. Weiss auf Navy, Navy auf Bone, eine Datei. */
 .logo{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  text-decoration:none;
-  color:inherit;
-  line-height:1;
+  display:block;
+  height:26px;
+  aspect-ratio:480/105;
+  background-color:var(--on-dark);
+  -webkit-mask:var(--logo) no-repeat center / contain;
+          mask:var(--logo) no-repeat center / contain;
+  flex:none;
 }
-.logo svg{width:26px;height:26px;flex:none}
-.logo .word{
-  font-size:16px;
-  font-weight:800;
-  letter-spacing:.05em;
-  text-transform:uppercase;
-}
-.logo .word .pro{
-  color:var(--gold);
-  font-weight:600;
-  letter-spacing:.14em;
-  margin-left:.35em;
-}
-.on-light .logo .word .pro{color:var(--gold-d)}
+.on-light .logo{background-color:var(--navy)}
+.foot .logo{height:30px;margin-bottom:18px}
 
 /* ---------- Navigation ---------- */
 
@@ -53,6 +43,10 @@
   padding:0;
   list-style:none;
 }
+/* Ohne diesen Reset traegt jedes li ausser dem letzten den globalen
+   Aussenabstand. align-items:center kippt den letzten Punkt dadurch
+   um die halbe Differenz nach unten. */
+.nav-links li{margin:0}
 .nav-links a{
   display:inline-flex;
   align-items:center;
@@ -129,15 +123,19 @@
   padding-top:clamp(56px,7vw,86px);
   padding-bottom:clamp(56px,7vw,86px);
 }
+/* Emblem als Wasserzeichen. Deckkraft nach Designsystem hoechstens 12 %. */
 .hero-watermark{
   position:absolute;
-  right:-70px;
+  right:clamp(-70px,-4vw,-20px);
   top:50%;
   transform:translateY(-50%);
-  width:min(560px,72vw);
+  width:min(470px,64vw);
+  aspect-ratio:300/317;
+  background-color:var(--gold);
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
   opacity:.12;
   pointer-events:none;
-  color:var(--gold);
 }
 .hero-in{position:relative;z-index:1;max-width:760px}
 .hero h1{margin-bottom:20px}
@@ -201,7 +199,14 @@
   text-transform:uppercase;
   color:var(--on-dark);
 }
-.band-item .dot{width:6px;height:6px;background:var(--gold);flex:none;border-radius:50%}
+.band-item .dot{
+  width:15px;
+  height:16px;
+  flex:none;
+  background-color:var(--gold);
+  -webkit-mask:var(--emblem-mark) no-repeat center / contain;
+          mask:var(--emblem-mark) no-repeat center / contain;
+}
 .band-note{
   flex:1 1 260px;
   font-size:14px;
@@ -235,7 +240,7 @@
 .panel h3{margin-bottom:18px;font-size:15px;letter-spacing:.02em}
 .panel ul{list-style:none;margin:0;padding:0}
 .panel li{
-  padding:14px 0 14px 26px;
+  padding:14px 0 14px 30px;
   border-top:1px solid var(--line-light);
   font-size:15.5px;
   line-height:1.55;
@@ -245,16 +250,20 @@
 }
 .panel li:first-child{border-top:0;padding-top:0}
 .panel li:last-child{padding-bottom:0}
+/* Aufzaehlungszeichen ist das Emblem, nicht mehr ein Strich.
+   Auf Bone traegt es gold-d, weil Gold dort zu wenig Kontrast hat. */
 .panel li::before{
   content:"";
   position:absolute;
   left:0;
-  top:22px;
-  width:10px;
-  height:1px;
-  background:var(--gold-d);
+  top:19px;
+  width:14px;
+  height:15px;
+  background-color:var(--gold-d);
+  -webkit-mask:var(--emblem-mark) no-repeat center / contain;
+          mask:var(--emblem-mark) no-repeat center / contain;
 }
-.panel li:first-child::before{top:8px}
+.panel li:first-child::before{top:5px}
 
 /* ---------- Leistungsbausteine ---------- */
 
@@ -579,6 +588,8 @@
 }
 @media (min-width:820px){.book-grid{grid-template-columns:1fr 1.25fr}}
 .book-cover{
+  position:relative;
+  overflow:hidden;
   aspect-ratio:2/3;
   max-width:230px;
   background:var(--navy);
@@ -589,6 +600,20 @@
   padding:24px 20px;
   color:var(--on-dark);
 }
+.book-cover::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:58%;
+  aspect-ratio:300/317;
+  background-color:var(--gold);
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
+  opacity:.12;
+}
+.book-cover .bt,.book-cover .ba{position:relative;z-index:1}
 .book-cover .bt{
   font-family:var(--serif);
   font-size:26px;
@@ -631,7 +656,7 @@
   padding:0;
 }
 .promise li{
-  padding:11px 0 11px 24px;
+  padding:11px 0 11px 28px;
   border-top:1px solid var(--line-dark);
   font-size:15px;
   color:var(--on-dark-2);
@@ -642,10 +667,12 @@
   content:"";
   position:absolute;
   left:0;
-  top:19px;
-  width:10px;
-  height:1px;
-  background:var(--gold);
+  top:16px;
+  width:14px;
+  height:15px;
+  background-color:var(--gold);
+  -webkit-mask:var(--emblem-mark) no-repeat center / contain;
+          mask:var(--emblem-mark) no-repeat center / contain;
 }
 .contact-direct{
   margin-top:26px;
@@ -836,6 +863,49 @@
 @media (min-width:900px){.mcta{display:none}}
 @media (max-width:899px){body{padding-bottom:76px}}
 
+/* ---------- Fallback ohne Maskenunterstuetzung ----------
+   Ohne diesen Block zeigten aeltere Browser an jeder maskierten Stelle
+   ein gefuelltes Rechteck. Hier tritt stattdessen die Wortmarke als
+   Text auf, das Wasserzeichen entfaellt, und die Aufzaehlungszeichen
+   fallen auf den urspruenglichen Strich zurueck. */
+
+@supports not ((-webkit-mask-image:none) or (mask-image:none)){
+  .logo{
+    width:auto;
+    height:auto;
+    aspect-ratio:auto;
+    background-color:transparent;
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--on-dark);
+    line-height:var(--nav-h);
+  }
+  .on-light .logo{color:var(--navy)}
+  .foot .logo{line-height:1.2}
+  .logo .vh{
+    position:static;
+    width:auto;
+    height:auto;
+    margin:0;
+    overflow:visible;
+    clip-path:none;
+  }
+
+  .hero-watermark,.book-cover::after{display:none}
+
+  .panel li::before,.promise li::before{
+    width:10px;
+    height:1px;
+    top:26px;
+  }
+  .panel li:first-child::before{top:12px}
+  .promise li::before{top:23px}
+  .band-item .dot{width:6px;height:6px;border-radius:50%}
+}
+
 /* ---------- Klickziele in Fliesstext ----------
    WCAG 2.5.8 nimmt Links im Satz von der Mindestgroesse aus.
    Die zusaetzliche Hoehe kostet nichts und macht die Regel
@@ -862,6 +932,11 @@
   .s-navy p,.s-navyd p,.level p,.cred span,.foot p,.foot a{color:#000 !important}
   .eyebrow,.level-no,.foot h4{color:#6E5A22 !important}
   .eyebrow::before{background:#6E5A22 !important}
+  /* Maskierte Flaechen tragen ihre Farbe als Hintergrund. Ohne diese
+     Regel druckt die Wortmarke weiss auf weiss. */
+  .logo{background-color:#172A4E !important}
+  .promise li::before,.band-item .dot{background-color:#6E5A22 !important}
+  .book-cover::after{display:none}
   h1,h2,h3{break-after:avoid}
   .portrait,.book-cover{border:1px solid #999}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#444}

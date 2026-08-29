@@ -22,6 +22,14 @@
   --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --serif:Georgia,Gelasio,"Iowan Old Style","Times New Roman",serif;
 
+  /* Assets. build.py setzt hier base64 ein.
+     Logo und Emblem dienen als CSS-Maske, ausgewertet wird nur der
+     Alphakanal. Die Farbe kommt aus den Tokens oben, damit dieselbe
+     Datei weiss auf Navy und dunkel auf Bone tragen kann. */
+  --logo:url("{{LOGO}}");
+  --emblem:url("{{EMBLEM}}");
+  --emblem-mark:url("{{EMBLEM_MARK}}");
+
   --r:3px;
   --nav-h:64px;
   --pad:clamp(20px,5vw,40px);
@@ -165,6 +173,18 @@ section{
   margin:0;
 }
 .s-navy .rule,.s-navyd .rule{background:var(--line-dark)}
+
+/* ---------- Nur fuer Screenreader ---------- */
+
+.vh{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+  border:0;
+}
 
 /* ---------- Skip Link ---------- */
 

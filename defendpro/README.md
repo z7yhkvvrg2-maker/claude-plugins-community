@@ -9,15 +9,35 @@ Eine eigenständige HTML-Datei ohne externe Requests.
 python3 build.py
 ```
 
-Setzt `defendpro_homepage.html` aus den Teilen in `src/` zusammen.
+Setzt `defendpro_homepage.html` aus den Teilen in `src/` zusammen und
+schreibt die Bilder aus `assets/` als base64 hinein.
 Keine Abhängigkeiten, nur die Standardbibliothek.
 
 | Quellteil | Inhalt |
 |---|---|
 | `src/01_head.html` | Meta, Open Graph, Favicon, JSON-LD für Organisation, Person und Buch |
-| `src/02_base.css` | Farbtokens, Typografie, Layoutraster, Fokus, Reduced Motion |
+| `src/02_base.css` | Farbtokens, Assetpfade, Typografie, Layoutraster, Fokus, Reduced Motion |
 | `src/03_components.css` | Navigation, Hero, Bausteine, Formular, Footer, Druckausgabe |
 | `src/04_body.html` | Seitenkörper, Abschnitte 00 bis 14 |
+
+## Assets
+
+| Datei | Verwendung |
+|---|---|
+| `assets/logo.png` | Wortmarke, Lockup mit Emblem, in Navigation und Footer |
+| `assets/emblem.png` | Emblem groß, Wasserzeichen im Hero und auf dem Buchcover |
+| `assets/emblem_mark.png` | Emblem klein, Aufzählungszeichen und Werteband |
+| `assets/portrait.jpg` | Porträt, Abschnitt 10 |
+| `assets/favicon.png` | Favicon, Emblem auf Navy |
+
+Logo und Emblem liegen als CSS-Maske über den Custom Properties `--logo`,
+`--emblem` und `--emblem-mark`. Ausgewertet wird allein der Alphakanal,
+die Farbe kommt aus dem Designsystem. Dieselbe Datei trägt dadurch die
+weiße Fassung auf Navy und die dunkle auf Bone, und die
+Aufzählungszeichen nehmen auf Bone automatisch `--gold-d`.
+
+Wer das Logo austauscht, legt eine PNG mit transparentem Hintergrund ab.
+Die Eigenfarbe der Datei spielt keine Rolle.
 
 ## Prüfen
 
@@ -71,7 +91,6 @@ der Seite gelb hinterlegt, damit keiner übersehen wird.
 - [ ] Hosting-Anbieter in der Datenschutzerklärung
 - [ ] LinkedIn-URL eintragen oder Zeile entfernen
 - [ ] Instagram-Handle bestätigen oder Zeile entfernen
-- [ ] Porträt einsetzen, siehe Kommentar in Abschnitt 10
 - [ ] Formular auf ein echtes Endpoint umstellen, siehe Kommentar in Abschnitt 12
 - [ ] Amazon-Link auf die kanonische Form `amazon.de/dp/ASIN` wechseln
 
@@ -84,9 +103,11 @@ Formspree oder das WPForms-Endpoint umstellen, `method="post"` bleibt.
 Übernahme nach WordPress die Schrift selbst hosten, damit die Darstellung
 stabil bleibt und keine Verbindung zu Dritten entsteht.
 
-**Assets.** Emblem und Favicon sind Inline-SVG beziehungsweise Data-URI.
-Die Seite lädt nichts nach. `deep.js` meldet jeden externen Request.
+**Assets.** Alle Bilder liegen als base64 in der Datei. Die Seite lädt
+nichts nach. `deep.js` meldet jeden externen Request.
 
-**Porträt.** Abschnitt 10 zeigt derzeit eine gestaltete Fläche mit
-Emblem. Der Austausch gegen ein Foto ist ein Blockwechsel, der Kommentar
-im Markup enthält das fertige `figure`.
+**Maskenunterstützung.** `mask-image` ist mit `-webkit-`-Präfix notiert.
+Für Browser ohne Maskenunterstützung liegt in `03_components.css` ein
+`@supports`-Block: die Wortmarke erscheint dort als gesetzter Text, das
+Wasserzeichen entfällt, und die Aufzählungszeichen fallen auf den
+ursprünglichen Strich zurück.
