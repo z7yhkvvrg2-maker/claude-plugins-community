@@ -1,0 +1,27 @@
+{
+  "_hinweis": "Einzige Stelle für alle Angaben, die vor dem Livegang fehlen. Ausfüllen, dann 'python3 build.py'. Leere Felder erscheinen auf der Seite als gelbe Marke, damit nichts unbemerkt live geht. Telefon, LinkedIn und Instagram verschwinden aus Navigation und Fußzeile, solange sie leer sind.",
+
+  "telefon": "",
+  "_telefon": "In internationaler Form für den Link, z. B. +436641234567",
+  "telefon_anzeige": "",
+  "_telefon_anzeige": "So wie es auf der Seite stehen soll, z. B. +43 664 123 45 67",
+
+  "anschrift": "",
+  "_anschrift": "Straße, PLZ, Ort. Erscheint im Impressum und beim Verantwortlichen.",
+
+  "gewerbewortlaut": "",
+  "gisa": "",
+  "behoerde": "",
+  "_behoerde": "Zuständige Bezirksverwaltungsbehörde, z. B. Magistratisches Bezirksamt für den 1. Bezirk",
+
+  "hosting": "",
+  "_hosting": "Name und Sitz des Hosters für die Datenschutzerklärung.",
+
+  "linkedin_url": "",
+  "linkedin_text": "Matthias Gastgeb",
+  "instagram_url": "",
+  "instagram_text": "",
+
+  "formular_endpoint": "",
+  "_formular_endpoint": "Volle URL des Formulardienstes. Leer lassen heißt mailto-Fallback, und der liefert nichts zuverlässig aus. ACHTUNG: Sobald hier ein externer Dienst steht, ist er ein weiterer Auftragsverarbeiter. Die Datenschutzerklärung sagt derzeit 'keine Verbindung zu Dritten' und muss am selben Tag angepasst werden."
+}

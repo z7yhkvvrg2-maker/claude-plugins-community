@@ -25,6 +25,8 @@ Wasserzeichen im Hero, und sind zusammen kleiner als die PNG-Quellen.
 """
 
 import base64
+import html as htmlmod
+import json
 from pathlib import Path
 from urllib.parse import quote
 
@@ -70,6 +72,57 @@ def svg_uri(name: str) -> str:
     return "data:image/svg+xml," + quote(svg, safe="/:=;,()")
 
 
+def kontaktfelder() -> dict:
+    """Baut aus kontakt.json die Textbausteine der Seite.
+
+    Ein leeres Feld erscheint als gelbe Marke, damit es beim Livegang
+    auffaellt. Telefon, LinkedIn und Instagram verschwinden dagegen
+    vollstaendig aus Navigation und Fusszeile, solange sie leer sind:
+    eine Marke im Seitengeruest waere haesslicher als eine fehlende
+    Zeile, und im Kontaktblock steht sie ohnehin.
+    """
+    cfg = json.loads((ROOT / "kontakt.json").read_text(encoding="utf-8"))
+    g = lambda k: str(cfg.get(k, "")).strip()
+    esc = htmlmod.escape
+
+    def feld(key: str, label: str) -> str:
+        v = g(key)
+        return esc(v) if v else f'<span class="todo">[{label}]</span>'
+
+    tel, tel_txt = g("telefon"), g("telefon_anzeige") or g("telefon")
+    li, ig = g("linkedin_url"), g("instagram_url")
+    endpoint = g("formular_endpoint")
+
+    return {
+        "ANSCHRIFT": feld("anschrift", "Anschrift einsetzen"),
+        "GEWERBEWORTLAUT": feld("gewerbewortlaut", "Gewerbewortlaut einsetzen"),
+        "GISA": feld("gisa", "GISA-Zahl einsetzen"),
+        "BEHOERDE": feld("behoerde", "zuständige Bezirksverwaltungsbehörde einsetzen"),
+        "HOSTING": feld("hosting", "Hosting-Anbieter einsetzen"),
+
+        "TELEFON_NAV": (f'<a class="nav-tel" href="tel:{esc(tel)}">{esc(tel_txt)}</a>' if tel else ""),
+        "TELEFON_KONTAKT": (
+            f'<div>Telefon: <a href="tel:{esc(tel)}">{esc(tel_txt)}</a></div>' if tel
+            else '<div>Telefon: <span class="todo">[Telefonnummer einsetzen]</span></div>'),
+        "TELEFON_FOOTER": (f'<li><a href="tel:{esc(tel)}">{esc(tel_txt)}</a></li>' if tel else ""),
+
+        "LINKEDIN_KONTAKT": (
+            f'<div>LinkedIn: <a href="{esc(li)}" rel="noopener">{esc(g("linkedin_text") or li)}</a></div>' if li
+            else '<div>LinkedIn: <span class="todo">[LinkedIn-URL einsetzen]</span></div>'),
+        "INSTAGRAM_KONTAKT": (
+            f'<div>Instagram: <a href="{esc(ig)}" rel="noopener">{esc(g("instagram_text") or ig)}</a></div>' if ig
+            else '<div>Instagram: <span class="todo">[Instagram-Handle bestätigen]</span></div>'),
+
+        # Ohne Endpoint bleibt der mailto-Fallback, der nichts zuverlaessig
+        # ausliefert. Das ist bewusst kein stiller Zustand: audit.py zaehlt
+        # die offenen Marken, und der Build sagt es unten noch einmal.
+        "FORM_ACTION": (f'action="{esc(endpoint)}" method="post"' if endpoint
+                        else 'action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain"'),
+        "_endpoint_gesetzt": bool(endpoint),
+        "_telefon_gesetzt": bool(tel),
+    }
+
+
 def main() -> None:
     chunks = []
     for name in PARTS:
@@ -79,8 +132,10 @@ def main() -> None:
         chunks.append(path.read_text(encoding="utf-8"))
     html = "\n".join(chunks)
 
+    felder = kontaktfelder()
     replacements = {k: base64_uri(n, m) for k, (n, m) in BINARY.items()}
     replacements.update({k: svg_uri(n) for k, n in VECTOR.items()})
+    replacements.update({k: v for k, v in felder.items() if not k.startswith("_")})
 
     for key, uri in replacements.items():
         token = "{{" + key + "}}"
@@ -97,6 +152,16 @@ def main() -> None:
     print(f"geschrieben: {OUT}")
     print(f"groesse:     {len(html.encode('utf-8')) / 1024:.1f} KB")
     print(f"zeilen:      {html.count(chr(10)) + 1}")
+
+    offen = html.count('class="todo"')
+    print()
+    print(f"offene Angaben aus kontakt.json: {offen}")
+    if not felder["_telefon_gesetzt"]:
+        print("  ! keine Telefonnummer. Fuer institutionelle Kunden der schnellste Kanal.")
+    if not felder["_endpoint_gesetzt"]:
+        print("  ! Formular laeuft auf mailto und liefert nichts zuverlaessig aus.")
+    if offen == 0 and felder["_endpoint_gesetzt"]:
+        print("  alles gesetzt, die Seite ist aus dieser Sicht livegangfaehig.")
 
 
 if __name__ == "__main__":

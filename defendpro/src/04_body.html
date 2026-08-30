@@ -18,6 +18,7 @@
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
     </nav>
+    {{TELEFON_NAV}}
     <a class="btn btn-gold btn-sm nav-cta" href="#kontakt">Erstgespräch</a>
   </div>
 </header>
@@ -101,7 +102,7 @@
   <div class="wrap">
     <p class="eyebrow">Leistungen</p>
     <h2>Drei Bausteine, einzeln buchbar</h2>
-    <p class="lead measure">Sie müssen nicht alles auf einmal nehmen. Am klarsten wird es, wenn Sie mit dem Safety Check beginnen und danach entscheiden, wie es weitergeht.</p>
+    <p class="lead measure">Sie müssen nicht alles auf einmal nehmen. Ich empfehle, mit einem Training zu beginnen. Ob davor eine Bestandsaufnahme sinnvoll ist, klären wir im Erstgespräch.</p>
 
     <div class="modules">
       <article class="module">
@@ -384,8 +385,9 @@
         -->
         <div class="contact-direct">
           <div>E-Mail: <a href="mailto:matthias.gastgeb@defendpro.at">matthias.gastgeb@defendpro.at</a></div>
-          <div>LinkedIn: <span class="todo">[LinkedIn-URL einsetzen]</span></div>
-          <div>Instagram: <span class="todo">[Instagram-Handle bestätigen]</span></div>
+          {{TELEFON_KONTAKT}}
+          {{LINKEDIN_KONTAKT}}
+          {{INSTAGRAM_KONTAKT}}
         </div>
       </div>
 
@@ -394,7 +396,7 @@
         Aktuell mailto-Fallback. Für den Livebetrieb action auf Formspree
         oder das WPForms-Endpoint umstellen und method="post" belassen.
       -->
-      <form class="form" id="anfrage" action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain">
+      <form class="form" id="anfrage" {{FORM_ACTION}}>
         <div class="field-row">
           <div class="field">
             <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -453,7 +455,7 @@
         <p>
           Defend Pro, Matthias Gastgeb<br>
           Einzelunternehmen<br>
-          <span class="todo">[Anschrift einsetzen]</span><br>
+          {{ANSCHRIFT}}<br>
           Österreich
         </p>
 
@@ -465,9 +467,9 @@
 
         <h4>Gewerbe und Behörde</h4>
         <p>
-          Gewerbewortlaut: <span class="todo">[Gewerbewortlaut einsetzen]</span><br>
-          GISA-Zahl: <span class="todo">[GISA-Zahl einsetzen]</span><br>
-          Gewerbebehörde: <span class="todo">[zuständige Bezirksverwaltungsbehörde einsetzen]</span><br>
+          Gewerbewortlaut: {{GEWERBEWORTLAUT}}<br>
+          GISA-Zahl: {{GISA}}<br>
+          Gewerbebehörde: {{BEHOERDE}}<br>
           Mitglied der Wirtschaftskammer Österreich.<br>
           Anwendbare Rechtsvorschrift: Gewerbeordnung, abrufbar unter <a href="https://www.ris.bka.gv.at" rel="noopener">ris.bka.gv.at</a>
         </p>
@@ -486,10 +488,10 @@
         <h3>Datenschutzerklärung</h3>
 
         <h4>Verantwortlicher</h4>
-        <p>Matthias Gastgeb, Defend Pro, <span class="todo">[Anschrift einsetzen]</span>, <a href="mailto:matthias.gastgeb@defendpro.at">matthias.gastgeb@defendpro.at</a></p>
+        <p>Matthias Gastgeb, Defend Pro, {{ANSCHRIFT}}, <a href="mailto:matthias.gastgeb@defendpro.at">matthias.gastgeb@defendpro.at</a></p>
 
         <h4>Hosting und Serverdaten</h4>
-        <p>Diese Website wird bei <span class="todo">[Hosting-Anbieter einsetzen]</span> betrieben. Beim Aufruf werden technisch notwendige Zugriffsdaten verarbeitet, darunter IP-Adresse, Zeitpunkt, abgerufene Seite und Browserkennung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, das berechtigte Interesse an einem sicheren und stabilen Betrieb.</p>
+        <p>Diese Website wird bei {{HOSTING}} betrieben. Beim Aufruf werden technisch notwendige Zugriffsdaten verarbeitet, darunter IP-Adresse, Zeitpunkt, abgerufene Seite und Browserkennung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, das berechtigte Interesse an einem sicheren und stabilen Betrieb.</p>
 
         <h4>Kontaktformular und E-Mail</h4>
         <p>Ihre Angaben verwende ich ausschließlich zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei vorvertraglichen Maßnahmen, sonst Art. 6 Abs. 1 lit. f DSGVO. Ich lösche die Daten, sobald der Vorgang abgeschlossen ist und keine gesetzliche Aufbewahrungspflicht entgegensteht.</p>
@@ -541,6 +543,7 @@
       <div>
         <h4>Kontakt</h4>
         <ul>
+          {{TELEFON_FOOTER}}
           <li><a href="mailto:matthias.gastgeb@defendpro.at">matthias.gastgeb@defendpro.at</a></li>
           <li><a href="#kontakt">Erstgespräch vereinbaren</a></li>
           <li><a href="#impressum">Impressum</a></li>

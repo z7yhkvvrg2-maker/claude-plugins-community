@@ -100,18 +100,41 @@ Serife liegt allein im Buchabschnitt über die Klasse `.ed`.
 
 ## Vor dem Livegang
 
-Offene Platzhalter stehen im Markup als `[... einsetzen]` und sind auf
-der Seite gelb hinterlegt, damit keiner übersehen wird. Es sind acht
-Marken mit sieben verschiedenen Beschriftungen, die Anschrift kommt im
-Impressum und beim Verantwortlichen je einmal vor.
+Alle fehlenden Angaben stehen in **einer** Datei: `kontakt.json`.
+Ausfüllen, `python3 build.py`, fertig. Kein Suchen im Markup.
 
-- [ ] Anschrift im Impressum und beim Verantwortlichen
-- [ ] Gewerbewortlaut, GISA-Zahl, zuständige Behörde
-- [ ] Hosting-Anbieter in der Datenschutzerklärung
-- [ ] LinkedIn-URL eintragen oder Zeile entfernen
-- [ ] Instagram-Handle bestätigen oder Zeile entfernen
-- [ ] Formular auf ein echtes Endpoint umstellen, siehe Kommentar in Abschnitt 12
+```bash
+$EDITOR kontakt.json
+python3 build.py
+```
+
+Der Build sagt danach, wie viele Angaben noch offen sind, und weist
+gesondert auf die zwei teuersten hin.
+
+Ein leeres Feld erscheint auf der Seite als gelbe Marke, damit nichts
+unbemerkt live geht. Telefonnummer, LinkedIn und Instagram verschwinden
+dagegen vollständig aus Navigation und Fußzeile, solange sie leer sind.
+Eine Marke im Seitengerüst wäre hässlicher als eine fehlende Zeile, und
+im Kontaktblock steht sie ohnehin.
+
+| Feld | Wirkt auf |
+|---|---|
+| `telefon`, `telefon_anzeige` | Navigation, Kontaktblock, Fußzeile |
+| `anschrift` | Impressum und Verantwortlicher |
+| `gewerbewortlaut`, `gisa`, `behoerde` | Impressum |
+| `hosting` | Datenschutzerklärung |
+| `linkedin_url`, `instagram_url` | Kontaktblock |
+| `formular_endpoint` | Formular, siehe Warnung unten |
+
+Zwei Punkte liegen außerhalb von `kontakt.json`:
+
 - [ ] Amazon-Link auf die kanonische Form `amazon.de/dp/ASIN` wechseln
+- [ ] Datenschutzerklärung anpassen, sobald ein Formulardienst gesetzt ist
+
+**Die Telefonnummer ist der wichtigste Eintrag.** Institutionelle Kunden
+rufen an, statt Formulare auszufüllen. Ohne Nummer hat ein Interessent
+genau einen Kanal, und der ist eine E-Mail-Adresse zum Abtippen. Auf dem
+Handy steht die Nummer als antippbarer Link direkt in der Navigation.
 
 ## Technische Hinweise
 
