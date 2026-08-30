@@ -1063,33 +1063,18 @@ section{
 .field-row{display:grid;gap:16px;grid-template-columns:1fr}
 @media (min-width:560px){.field-row{grid-template-columns:1fr 1fr}}
 
-.consent{
-  display:flex;
-  align-items:flex-start;
-  gap:11px;
-  margin:20px 0;
+/* Der Absendebereich traegt die Trennlinie, die vorher am
+   Einwilligungsblock hing. Das Haekchen ist entfallen: fuer eine
+   Geschaeftsanfrage tragen Art. 6 Abs. 1 lit. b und f, eine zusaetzliche
+   Einwilligung nach lit. a haette der Datenschutzerklaerung
+   widersprochen. */
+.form-submit{
+  margin-top:20px;
   padding-top:18px;
   border-top:1px solid var(--line-dark);
 }
-.consent input{
-  flex:none;
-  width:24px;
-  height:24px;
-  min-height:0;
-  margin-top:1px;
-  accent-color:var(--gold);
-  padding:0;
-}
-.consent label{
-  font-size:13.5px;
-  line-height:1.55;
-  font-weight:400;
-  letter-spacing:0;
-  text-transform:none;
-  color:var(--on-dark-2);
-  margin:0;
-}
-.consent label a{color:var(--gold)}
+.form-note a{color:var(--gold);text-decoration:underline}
+.form-note a:hover{color:#C7B071}
 .form .btn{width:100%}
 .form-note{
   margin-top:14px;
@@ -1242,7 +1227,7 @@ section{
 
 .legal a,
 .contact-direct a,
-.consent label a,
+.form-note a,
 .book-meta a{
   display:inline-block;
   padding-block:4px;
@@ -1491,6 +1476,7 @@ section{
         <div>
           <h3>Durchführung</h3>
           <p>Ich komme zu Ihnen. Sie brauchen einen Raum, in dem sich Ihre Leute bewegen können. Mehr nicht.</p>
+          <p>Die Teilnahme ist freiwillig. Gesundheitliche Einschränkungen sagen Sie mir vorher, dann passe ich den Ablauf an oder lasse einzelne Übungen weg.</p>
           <span class="step-meta">Inhouse, in ganz Österreich</span>
         </div>
       </li>
@@ -1699,17 +1685,14 @@ section{
           </select>
         </div>
         <div class="field">
-          <label for="f-text">Welche Situationen sind bei Ihnen gerade relevant? <span class="req" aria-hidden="true">*</span></label>
-          <textarea id="f-text" name="Situation" required placeholder="Ein paar Sätze genügen."></textarea>
+          <label for="f-text">Welche Situationen sind bei Ihnen gerade relevant?</label>
+          <textarea id="f-text" name="Situation" placeholder="Ein paar Sätze genügen. Sie können das Feld auch leer lassen."></textarea>
         </div>
 
-        <div class="consent">
-          <input id="f-dsgvo" name="Datenschutz" type="checkbox" value="akzeptiert" required>
-          <label for="f-dsgvo">Ich bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. Details in der <a href="#datenschutz">Datenschutzerklärung</a>. <span class="req" aria-hidden="true">*</span></label>
+        <div class="form-submit">
+          <button class="btn btn-gold" type="submit">Anfrage senden</button>
+          <p class="form-note">Mit <span aria-hidden="true">*</span> gekennzeichnete Felder sind erforderlich. Ihre Angaben verwende ich ausschließlich zur Bearbeitung dieser Anfrage. Details in der <a href="#datenschutz">Datenschutzerklärung</a>. Ich melde mich innerhalb von zwei Werktagen.</p>
         </div>
-
-        <button class="btn btn-gold" type="submit">Anfrage senden</button>
-        <p class="form-note">Mit <span aria-hidden="true">*</span> gekennzeichnete Felder sind erforderlich. Ich melde mich in der Regel innerhalb von zwei Werktagen.</p>
       </form>
     </div>
   </div>

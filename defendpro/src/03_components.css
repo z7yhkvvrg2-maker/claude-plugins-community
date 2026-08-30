@@ -739,33 +739,18 @@
 .field-row{display:grid;gap:16px;grid-template-columns:1fr}
 @media (min-width:560px){.field-row{grid-template-columns:1fr 1fr}}
 
-.consent{
-  display:flex;
-  align-items:flex-start;
-  gap:11px;
-  margin:20px 0;
+/* Der Absendebereich traegt die Trennlinie, die vorher am
+   Einwilligungsblock hing. Das Haekchen ist entfallen: fuer eine
+   Geschaeftsanfrage tragen Art. 6 Abs. 1 lit. b und f, eine zusaetzliche
+   Einwilligung nach lit. a haette der Datenschutzerklaerung
+   widersprochen. */
+.form-submit{
+  margin-top:20px;
   padding-top:18px;
   border-top:1px solid var(--line-dark);
 }
-.consent input{
-  flex:none;
-  width:24px;
-  height:24px;
-  min-height:0;
-  margin-top:1px;
-  accent-color:var(--gold);
-  padding:0;
-}
-.consent label{
-  font-size:13.5px;
-  line-height:1.55;
-  font-weight:400;
-  letter-spacing:0;
-  text-transform:none;
-  color:var(--on-dark-2);
-  margin:0;
-}
-.consent label a{color:var(--gold)}
+.form-note a{color:var(--gold);text-decoration:underline}
+.form-note a:hover{color:#C7B071}
 .form .btn{width:100%}
 .form-note{
   margin-top:14px;
@@ -918,7 +903,7 @@
 
 .legal a,
 .contact-direct a,
-.consent label a,
+.form-note a,
 .book-meta a{
   display:inline-block;
   padding-block:4px;

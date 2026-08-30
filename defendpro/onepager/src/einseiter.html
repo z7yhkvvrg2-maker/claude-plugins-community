@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+<meta charset="utf-8">
+<title>Defend Pro Einseiter</title>
+<style>
+/* ============================================================
+   DEFEND PRO . Einseiter
+   A4, eine Seite. Zum Weitergeben an die Leitung und als Anlage
+   einer Anfrage. Kein Beschnitt: das Blatt geht auch durch einen
+   Buerodrucker, deshalb liegt nichts Wichtiges am Rand.
+   ============================================================ */
+
+/* Inter, statische Schnitte. Ein Variable Font wuerde von Chromium
+   nicht ins PDF eingebettet, siehe card/README.md. */
+@font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:block;src:url({{FONT_400}}) format("woff2")}
+@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:block;src:url({{FONT_600}}) format("woff2")}
+@font-face{font-family:Inter;font-style:normal;font-weight:700;font-display:block;src:url({{FONT_700}}) format("woff2")}
+@font-face{font-family:Inter;font-style:normal;font-weight:800;font-display:block;src:url({{FONT_800}}) format("woff2")}
+
+:root{
+  --navy:#172A4E;
+  --navy-d:#0F1E3A;
+  --bone:#FAF7F2;
+  --bone-d:#F1ECE3;
+  --gold:#B8A05C;
+  --gold-d:#7D692E;
+  --ink:#172A4E;
+  --ink-2:#4A5872;
+  --on-dark-2:#C3CBD9;
+  --line:rgba(23,42,78,.16);
+  --pad:18mm;
+
+  /* Als Maske gesetzt, damit Wortmarke und Emblem die Systemfarben
+     tragen. build_onepager.py setzt die Data-URIs ein. */
+  --logo:url("{{LOGO}}");
+  --emblem:url("{{EMBLEM}}");
+}
+
+@page{ size:A4; margin:0 }
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  width:210mm;
+  min-height:297mm;
+  background:var(--bone);
+  font-family:Inter,sans-serif;
+  color:var(--ink);
+  -webkit-print-color-adjust:exact;
+          print-color-adjust:exact;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ---------- Kopf ---------- */
+
+.head{
+  position:relative;
+  overflow:hidden;
+  background:var(--navy);
+  color:#fff;
+  padding:9mm var(--pad) 7mm;
+}
+.head::after{                       /* Emblem als Wasserzeichen, max 12 % */
+  content:"";
+  position:absolute;
+  right:-14mm; top:50%;
+  transform:translateY(-50%);
+  width:62mm; aspect-ratio:300/317;
+  background-color:var(--gold);
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
+  opacity:.12;
+}
+.head > *{position:relative;z-index:1}
+.logo{
+  width:44mm; aspect-ratio:480/105;
+  background-color:#fff;
+  -webkit-mask:var(--logo) no-repeat left center / contain;
+          mask:var(--logo) no-repeat left center / contain;
+  margin-bottom:6mm;
+}
+h1{
+  font-size:19pt;
+  font-weight:800;
+  letter-spacing:-.03em;
+  line-height:1.06;
+  margin-bottom:3mm;
+}
+.sub{font-size:11pt;font-weight:600;color:#fff;letter-spacing:-.01em}
+.claim{
+  margin-top:4mm;
+  font-size:6.6pt;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* ---------- Körper ---------- */
+
+main{flex:1;padding:6mm var(--pad) 5mm}
+
+.eyebrow{
+  display:flex; align-items:center; gap:2.5mm;
+  font-size:6.6pt; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold-d);
+  margin-bottom:2.5mm;
+}
+.eyebrow::before{content:"";width:6mm;height:.4mm;background:currentColor;flex:none}
+
+h2{font-size:12pt;font-weight:750;letter-spacing:-.02em;margin-bottom:2mm;line-height:1.15}
+p{font-size:8.8pt;line-height:1.55;color:var(--ink-2)}
+main p b{color:var(--ink);font-weight:700}
+
+.block{margin-bottom:4.5mm}
+.block:last-child{margin-bottom:0}
+
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm}
+.col h3{font-size:9pt;font-weight:700;margin-bottom:1.2mm;color:var(--ink)}
+.col .no{font-size:6.4pt;font-weight:700;letter-spacing:.18em;color:var(--gold-d);margin-bottom:1.5mm}
+.col p{font-size:8.2pt;line-height:1.5}
+.col{border-top:.4mm solid var(--navy);padding-top:2.5mm}
+
+.result{
+  margin-top:2mm;padding-top:1.8mm;
+  border-top:.2mm solid var(--line);
+  font-size:8pt;line-height:1.45;font-weight:650;color:var(--gold-d);
+}
+.result span{
+  display:block;font-size:6.2pt;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:.8mm;
+}
+
+/* Anlässe */
+.cases{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:1.1mm 6mm;margin-top:2mm}
+.cases li{
+  position:relative;padding-left:5mm;
+  font-size:8pt;line-height:1.4;color:var(--ink);
+}
+.cases li::before{
+  content:"";position:absolute;left:0;top:.7mm;
+  width:3.4mm;height:3.6mm;
+  background-color:var(--gold-d);
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
+}
+
+/* Formate und Preisrahmen */
+.formats{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:2.5mm}
+.formats div{border-top:.2mm solid var(--line);padding-top:2mm}
+.formats b{display:block;font-size:8.4pt;font-weight:700;color:var(--ink)}
+.formats span{display:block;font-size:6.6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);margin-top:.8mm}
+
+.note{
+  margin-top:3mm;padding:2.2mm 3mm;
+  background:var(--bone-d);
+  border-left:.6mm solid var(--gold-d);
+  font-size:7.6pt;line-height:1.5;color:var(--ink-2);
+}
+
+/* Belege */
+.creds{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:2.5mm}
+.creds div{font-size:7.4pt;line-height:1.35;color:var(--ink-2);padding-left:2.5mm;border-left:.5mm solid var(--gold-d)}
+.creds b{display:block;color:var(--ink);font-weight:700;font-size:7.9pt}
+
+/* ---------- Fuß ---------- */
+
+footer{
+  background:var(--navy-d);
+  color:#fff;
+  padding:5mm var(--pad);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8mm;
+}
+footer .lead{font-size:10pt;font-weight:700;letter-spacing:-.01em}
+footer .lead span{display:block;font-size:7.6pt;font-weight:400;color:var(--on-dark-2);margin-top:1.2mm}
+footer .contact{text-align:right;font-size:8.4pt;line-height:1.6;color:var(--on-dark-2)}
+footer .contact b{display:block;color:#fff;font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="logo"></div>
+  <h1>Handlungssicherheit für Ihr Team</h1>
+  <p class="sub">Handlungsfähig, bevor eine Situation eskaliert.</p>
+  <p class="claim">Prävention · Deeskalation · Eigensicherung</p>
+</header>
+
+<main>
+
+  <div class="block">
+    <p class="eyebrow">Die Ausgangslage</p>
+    <h2>Es passiert selten aus dem Nichts</h2>
+    <p>Vor den meisten Übergriffen liegt eine Phase, in der noch etwas möglich gewesen wäre. Sie ist kurz, und sie wird übersehen, wenn niemand darauf trainiert ist, sie zu bemerken.</p>
+    <ul class="cases">
+      <li>Eine Angehörige wartet seit vierzig Minuten und wird am Stützpunkt laut.</li>
+      <li>Ein Patient steht auf, kommt einen Schritt zu nah und geht nicht zurück.</li>
+      <li>Am Schalter ist die Auskunft korrekt. Der Mann davor akzeptiert sie nicht.</li>
+      <li>Eine Pflegerin ist in der Nachtschicht allein auf der Station.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <p class="eyebrow">Das Modell</p>
+    <h2>Organisation. Team. Mensch.</h2>
+    <p>Sicherheit scheitert selten an einem einzelnen Punkt. Auf der Ebene <b>Organisation</b> geht es um Zuständigkeiten, Hilfewege und Abläufe, und darum, ob Papier und Praxis auseinanderfallen. Auf der Ebene <b>Team</b> darum, ob dasselbe Signal für alle dasselbe bedeutet und wer in welcher Lage führt. Auf der Ebene <b>Mensch</b> darum, ob die einzelne Person unter Druck noch wahrnehmen, entscheiden und handeln kann, auch allein.</p>
+  </div>
+
+  <div class="block">
+    <p class="eyebrow">Leistungen</p>
+    <h2>Drei Bausteine, einzeln buchbar</h2>
+    <div class="cols">
+      <div class="col">
+        <p class="no">01</p>
+        <h3>Safety Check</h3>
+        <p>Ich sehe mir an, was tatsächlich passiert. Kontaktpunkte, Rollen, Alarmwege, bestehende Maßnahmen.</p>
+        <p class="result"><span>Ergebnis</span>Ein schriftlicher Befund mit benannten Lücken und einer Empfehlung, was zuerst zu tun ist.</p>
+      </div>
+      <div class="col">
+        <p class="no">02</p>
+        <h3>Training</h3>
+        <p>Wahrnehmen, ansprechen, Grenzen setzen, Position verändern, Hilfe holen. Rollenbezogen.</p>
+        <p class="result"><span>Ergebnis</span>Ihr Team hat eine gemeinsame Sprache für den Moment, in dem es schnell gehen muss.</p>
+      </div>
+      <div class="col">
+        <p class="no">03</p>
+        <h3>Transfer</h3>
+        <p>Ich halte Abläufe und Zuständigkeiten fest. Auf Wunsch Auffrischung nach sechs bis zwölf Monaten.</p>
+        <p class="result"><span>Ergebnis</span>Verbindliche Abläufe, die neue Mitarbeitende in wenigen Tagen übernehmen.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="eyebrow">Formate, alle inhouse</p>
+    <div class="formats">
+      <div><b>Keynote</b><span>60 bis 90 Minuten</span></div>
+      <div><b>Workshop</b><span>Halbtag</span></div>
+      <div><b>Intensivtraining</b><span>Ganztag</span></div>
+      <div><b>Seminarreihe</b><span>Mehrere Termine</span></div>
+    </div>
+    <p class="note">Ein Workshop für eine Gruppe liegt im vierstelligen Bereich, abhängig von Umfang, Gruppengröße und Anfahrt. Der Safety Check ist ausdrücklich keine gesetzliche Arbeitsplatzevaluierung, keine Rechtsprüfung und keine Zertifizierung. Die Teilnahme ist freiwillig, gesundheitliche Einschränkungen berücksichtige ich vorab.</p>
+  </div>
+
+  <div class="block">
+    <p class="eyebrow">Matthias Gastgeb</p>
+    <div class="creds">
+      <div><b>Diplomtrainer</b>Staatlich geprüft, BSPA</div>
+      <div><b>Europameister</b>Jiu-Jitsu, Fighting System</div>
+      <div><b>World Games</b>Medaillengewinner</div>
+      <div><b>Vizepräsident</b>Jiu-Jitsu Verband Österreich</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="lead">
+    Erstgespräch: 20 Minuten, kostenlos
+    <span>Sie schildern, was bei Ihnen passiert. Ich sage Ihnen, ob und wie ich helfen kann.</span>
+  </div>
+  <div class="contact">
+    <b>matthias.gastgeb@defendpro.at</b>
+    defendpro.at · Wien, Österreich
+  </div>
+</footer>
+
+</body>
+</html>

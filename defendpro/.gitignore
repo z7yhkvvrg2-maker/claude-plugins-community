@@ -2,8 +2,7 @@ node_modules/
 shots/
 package-lock.json
 audit.py
+__pycache__/
+*.pyc
 card/shots/
-
-# Arbeitsverzeichnisse der Analyse-Agenten, keine Projektdateien
-_ux/
-_scratch/
+onepager/shots/
