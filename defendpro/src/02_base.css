@@ -26,7 +26,13 @@
   --bone:#FAF7F2;
   --bone-d:#F1ECE3;
   --gold:#B8A05C;
-  --gold-d:#8A7433;
+  /* Gold auf Bone traegt nur 2,39:1 und ist als Textfarbe ausgeschlossen.
+     Der fruehere Ersatz #8A7433 erreichte 4,25:1 auf Bone und 3,86:1 auf
+     Bone-d, beides unter den 4,5:1, die WCAG AA fuer Text dieser Groesse
+     verlangt. Die 3:1-Ausnahme greift erst ab 18,66 px fett und hilft den
+     11-px-Eyebrows nicht. Derselbe Farbton bei gleicher Saettigung, nur
+     3,6 % dunkler, erfuellt beide Flaechen: 5,00:1 und 4,54:1. */
+  --gold-d:#7D692E;
   --ink:#172A4E;
   --ink-2:#4A5872;
   --on-dark:#FFFFFF;

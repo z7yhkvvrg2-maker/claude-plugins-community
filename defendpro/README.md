@@ -54,7 +54,7 @@ Die Eigenfarbe der Datei spielt keine Rolle.
 
 ```bash
 npm install          # einmalig, nur Playwright
-node deep.js         # Überlauf, Klickziele, tote Anker, Konsolenfehler
+node deep.js         # Überlauf, Klickziele, tote Anker, Konsole, externe Requests
 node shot.js         # Screenshots je Abschnitt nach shots/
 ```
 
@@ -86,8 +86,14 @@ sobald eine Breite auffällt.
 Farben, Typografie und Abstände liegen als Custom Properties in
 `src/02_base.css`. Änderungen dort wirken auf die ganze Seite.
 
-Gold `#B8A05C` trägt Text ausschließlich auf Navy. Auf Bone gilt
-`--gold-d` `#8A7433`, weil Gold auf Bone nur 2,39:1 erreicht.
+Gold `#B8A05C` trägt Text ausschließlich auf Navy, wo es 5,56:1 erreicht.
+Auf Bone kommt Gold nur auf 2,39:1 und ist als Textfarbe ausgeschlossen.
+Dort gilt `--gold-d` `#7D692E` mit 5,00:1 auf Bone und 4,54:1 auf Bone-d.
+
+Der frühere Wert `#8A7433` lag mit 4,25:1 und 3,86:1 unter den 4,5:1, die
+WCAG AA für Text dieser Größe verlangt. Die 3:1-Ausnahme greift erst ab
+18,66 px fett und hilft den 11-px-Eyebrows nicht.
+
 Radius durchgehend 3 px, keine Schatten, Trennlinien statt Karten.
 
 Serife liegt allein im Buchabschnitt über die Klasse `.ed`.
@@ -95,7 +101,9 @@ Serife liegt allein im Buchabschnitt über die Klasse `.ed`.
 ## Vor dem Livegang
 
 Offene Platzhalter stehen im Markup als `[... einsetzen]` und sind auf
-der Seite gelb hinterlegt, damit keiner übersehen wird.
+der Seite gelb hinterlegt, damit keiner übersehen wird. Es sind acht
+Marken mit sieben verschiedenen Beschriftungen, die Anschrift kommt im
+Impressum und beim Verantwortlichen je einmal vor.
 
 - [ ] Anschrift im Impressum und beim Verantwortlichen
 - [ ] Gewerbewortlaut, GISA-Zahl, zuständige Behörde
@@ -107,20 +115,38 @@ der Seite gelb hinterlegt, damit keiner übersehen wird.
 
 ## Technische Hinweise
 
-**Formular.** Läuft als `mailto`-Fallback. Für den Betrieb `action` auf
-Formspree oder das WPForms-Endpoint umstellen, `method="post"` bleibt.
+**Formular.** Läuft als `mailto`-Fallback und liefert damit nichts
+zuverlässig aus: ohne registriertes Mailprogramm passiert beim Absenden
+sichtbar nichts, und es kommt auch nichts an. Für den Betrieb `action`
+auf ein echtes Endpoint umstellen, `method="post"` bleibt.
+
+Achtung, das ist keine reine Technikänderung. Die Datenschutzerklärung
+sagt derzeit „keine Verbindung zu Dritten" und „Weitergabe erfolgt nur
+an den Hostinganbieter". Jeder externe Formulardienst ist ein weiterer
+Auftragsverarbeiter. Beides muss am selben Tag angepasst werden, sonst
+wird die Erklärung mit der Umstellung falsch.
 
 **Schrift.** Inter liegt als Variable Font eingebettet in der Datei,
 Achse `wght` 100 bis 900. Dadurch treffen auch die Zwischenschnitte 650
 und 750 aus dem Designsystem exakt. Es entsteht keine Verbindung zu
-Google Fonts und keine Abhängigkeit davon, welche Schriften auf dem Gerät
-des Besuchers installiert sind.
+Google Fonts.
+
+Das gilt für die Grotesk, also den ganzen Fließtext und alle
+Überschriften. Die Serife im Buchabschnitt läuft weiter über einen
+System-Stack aus Georgia und Times und hängt damit am Gerät. Für einen
+Abschnitt von 55 Wörtern ist das vertretbar, es ist aber keine
+vollständige Unabhängigkeit.
 
 Die Visitenkarte verwendet bewusst die vier statischen Schnitte im selben
 Ordner. Grund steht in `card/README.md`.
 
 **Assets.** Alle Bilder liegen als base64 in der Datei. Die Seite lädt
-nichts nach. `deep.js` meldet jeden externen Request.
+nichts nach.
+
+`deep.js` überwacht das über `page.on('request')` und bricht mit Exit 1
+ab, sobald eine Anfrage weder `file:` noch `data:` ist. Der Wächter ist
+gegen eine absichtlich eingebaute externe Ressource getestet. Vorher
+behauptete diese Zeile die Prüfung, ohne dass sie stattfand.
 
 **Maskenunterstützung.** `mask-image` ist mit `-webkit-`-Präfix notiert.
 Für Browser ohne Maskenunterstützung liegt in `03_components.css` ein

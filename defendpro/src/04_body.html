@@ -83,7 +83,7 @@
       </div>
     </div>
     <div class="panel">
-      <h3>Sechs Anlässe, die mir immer wieder geschildert werden</h3>
+      <h3>Sechs Anlässe, um die es in diesen Bereichen typischerweise geht</h3>
       <ul>
         <li>Eine Angehörige wartet seit vierzig Minuten und wird am Stützpunkt laut.</li>
         <li>Ein Patient steht auf, kommt einen Schritt zu nah und geht nicht zurück.</li>
@@ -101,7 +101,7 @@
   <div class="wrap">
     <p class="eyebrow">Leistungen</p>
     <h2>Drei Bausteine, einzeln buchbar</h2>
-    <p class="lead measure">Sie müssen nicht alles auf einmal nehmen. Die meisten beginnen mit dem Safety Check und entscheiden danach, wie es weitergeht.</p>
+    <p class="lead measure">Sie müssen nicht alles auf einmal nehmen. Am klarsten wird es, wenn Sie mit dem Safety Check beginnen und danach entscheiden, wie es weitergeht.</p>
 
     <div class="modules">
       <article class="module">
@@ -267,7 +267,7 @@
 <section id="fragen" class="s-bone on-light">
   <div class="wrap">
     <p class="eyebrow">Häufige Fragen</p>
-    <h2>Was vor dem ersten Gespräch meistens gefragt wird</h2>
+    <h2>Fragen, die vor dem ersten Gespräch naheliegen</h2>
 
     <div class="faq">
       <details>
@@ -288,11 +288,11 @@
       </details>
       <details>
         <summary>Brauchen wir Vorkenntnisse oder Sportkleidung?</summary>
-        <div class="answer"><p>Weder noch. Wir arbeiten in normaler Arbeitskleidung, weil Sie im Alltag auch nichts anderes anhaben. Alle Übungen sind so aufgebaut, dass körperliche Voraussetzungen keine Rolle spielen.</p></div>
+        <div class="answer"><p>Weder noch. Wir arbeiten in normaler Arbeitskleidung, weil Sie im Alltag auch nichts anderes anhaben. Die Übungen lassen sich an unterschiedliche körperliche Voraussetzungen anpassen. Wenn bei Ihnen oder im Team gesundheitliche Einschränkungen bestehen, sagen Sie mir das vorher, dann richte ich den Ablauf danach aus.</p></div>
       </details>
       <details>
         <summary>Wie schnell ist ein Termin möglich?</summary>
-        <div class="answer"><p>Das Erstgespräch meistens innerhalb einer Woche. Für den Trainingstag rechnen Sie mit einigen Wochen Vorlauf, weil ich Ihre Situation vorher kennen möchte.</p></div>
+        <div class="answer"><p>Einen Termin für das Erstgespräch biete ich Ihnen innerhalb einer Woche an. Für den Trainingstag rechnen Sie mit einigen Wochen Vorlauf, weil ich Ihre Situation vorher kennen möchte.</p></div>
       </details>
     </div>
   </div>
@@ -393,7 +393,7 @@
         Aktuell mailto-Fallback. Für den Livebetrieb action auf Formspree
         oder das WPForms-Endpoint umstellen und method="post" belassen.
       -->
-      <form class="form" action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain">
+      <form class="form" id="anfrage" action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain">
         <div class="field-row">
           <div class="field">
             <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -558,9 +558,15 @@
 </footer>
 
 <!-- Mobiler Dauer-CTA -->
+<!--
+  Auf dem Handy steht das Formular rund 940 px unterhalb von #kontakt,
+  der Sprung landete also im Fliesstext. Der Dauer-CTA zielt deshalb
+  direkt auf das Formular. Nav und Hero bleiben auf #kontakt, dort ist
+  die Einordnung vor dem Formular gewollt.
+-->
 <div class="mcta">
   <span>20 Minuten, kostenlos</span>
-  <a class="btn btn-gold btn-sm" href="#kontakt">Erstgespräch</a>
+  <a class="btn btn-gold btn-sm" href="#anfrage">Erstgespräch</a>
 </div>
 
 </body>

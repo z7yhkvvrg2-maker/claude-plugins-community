@@ -21,6 +21,18 @@ const WIDTHS = [390, 834, 1180, 1440, 1600];
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
     page.on('pageerror', e => errors.push('pageerror: ' + e.message));
 
+    // Die Seite darf nichts nachladen. Genau das behauptet auch die
+    // Datenschutzerklaerung, also wird es hier geprueft und nicht nur
+    // angenommen. Erlaubt sind allein die Datei selbst und eingebettete
+    // Inhalte; alles andere waere eine Verbindung zu Dritten.
+    const external = [];
+    page.on('request', r => {
+      const u = r.url();
+      if (!/^(file:|data:|blob:|about:)/.test(u)) {
+        external.push(`${r.resourceType()} ${u.slice(0, 90)}`);
+      }
+    });
+
     await page.goto(FILE, { waitUntil: 'load' });
     await page.waitForTimeout(250);
 
@@ -64,7 +76,7 @@ const WIDTHS = [390, 834, 1180, 1440, 1600];
     });
 
     const overflow = r.scrollW > r.clientW + 1;
-    const flag = (overflow || r.over.length || r.small.length || errors.length) ? 'FEHLER' : 'ok';
+    const flag = (overflow || r.over.length || r.small.length || errors.length || external.length) ? 'FEHLER' : 'ok';
     if (flag === 'FEHLER') bad++;
 
     console.log(`\n${w}px  ${flag}`);
@@ -72,6 +84,7 @@ const WIDTHS = [390, 834, 1180, 1440, 1600];
     if (r.over.length) console.log('  Ueberlauf:', r.over);
     if (r.small.length) console.log('  Klickziel < 24px:', r.small);
     if (errors.length) console.log('  Konsole:', errors);
+    console.log(`  Externe Requests: ${external.length === 0 ? 'keine' : external.join(', ')}`);
 
     await page.screenshot({ path: path.join(SHOTS, `w${w}.png`), fullPage: true });
     await ctx.close();

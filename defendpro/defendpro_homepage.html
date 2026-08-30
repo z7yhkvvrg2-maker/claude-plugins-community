@@ -116,7 +116,13 @@
   --bone:#FAF7F2;
   --bone-d:#F1ECE3;
   --gold:#B8A05C;
-  --gold-d:#8A7433;
+  /* Gold auf Bone traegt nur 2,39:1 und ist als Textfarbe ausgeschlossen.
+     Der fruehere Ersatz #8A7433 erreichte 4,25:1 auf Bone und 3,86:1 auf
+     Bone-d, beides unter den 4,5:1, die WCAG AA fuer Text dieser Groesse
+     verlangt. Die 3:1-Ausnahme greift erst ab 18,66 px fett und hilft den
+     11-px-Eyebrows nicht. Derselbe Farbton bei gleicher Saettigung, nur
+     3,6 % dunkler, erfuellt beide Flaechen: 5,00:1 und 4,54:1. */
+  --gold-d:#7D692E;
   --ink:#172A4E;
   --ink-2:#4A5872;
   --on-dark:#FFFFFF;
@@ -378,11 +384,14 @@ section{
   transition:color .16s ease,border-color .16s ease;
 }
 .nav-links a:hover{color:var(--on-dark);border-bottom-color:var(--gold)}
-.nav-cta{display:none}
+/* Spezifitaet muss ueber .btn liegen. Steht hier nur .nav-cta, gewinnt
+   das spaetere .btn{display:inline-flex} bei gleicher Spezifitaet, und
+   der Nav-Button erscheint auf dem Handy zusaetzlich zum Dauer-CTA. */
+.nav .nav-cta{display:none}
 
 @media (min-width:900px){
   .nav-links{display:flex}
-  .nav-cta{display:inline-flex}
+  .nav .nav-cta{display:inline-flex}
 }
 
 /* ---------- Buttons ---------- */
@@ -427,7 +436,7 @@ section{
   font-size:14.5px;
   text-decoration:none;
   color:var(--gold-d);
-  border-bottom:1px solid rgba(138,116,51,.4);
+  border-bottom:1px solid rgba(125,105,46,.45);
 }
 .tlink:hover{border-bottom-color:var(--gold-d)}
 .s-navy .tlink,.s-navyd .tlink{color:var(--gold);border-bottom-color:rgba(184,160,92,.45)}
@@ -640,9 +649,9 @@ section{
   background:var(--bone);
   border-left:2px solid var(--gold-d);
   border-radius:0 var(--r) var(--r) 0;
-  font-size:14.5px;
-  line-height:1.55;
-  color:var(--ink-2);
+  font-size:16.5px;
+  line-height:1.6;
+  color:var(--ink);
 }
 .s-bone .disclaimer{background:var(--bone-d)}
 
@@ -1349,7 +1358,7 @@ section{
       </div>
     </div>
     <div class="panel">
-      <h3>Sechs Anlässe, die mir immer wieder geschildert werden</h3>
+      <h3>Sechs Anlässe, um die es in diesen Bereichen typischerweise geht</h3>
       <ul>
         <li>Eine Angehörige wartet seit vierzig Minuten und wird am Stützpunkt laut.</li>
         <li>Ein Patient steht auf, kommt einen Schritt zu nah und geht nicht zurück.</li>
@@ -1367,7 +1376,7 @@ section{
   <div class="wrap">
     <p class="eyebrow">Leistungen</p>
     <h2>Drei Bausteine, einzeln buchbar</h2>
-    <p class="lead measure">Sie müssen nicht alles auf einmal nehmen. Die meisten beginnen mit dem Safety Check und entscheiden danach, wie es weitergeht.</p>
+    <p class="lead measure">Sie müssen nicht alles auf einmal nehmen. Am klarsten wird es, wenn Sie mit dem Safety Check beginnen und danach entscheiden, wie es weitergeht.</p>
 
     <div class="modules">
       <article class="module">
@@ -1533,7 +1542,7 @@ section{
 <section id="fragen" class="s-bone on-light">
   <div class="wrap">
     <p class="eyebrow">Häufige Fragen</p>
-    <h2>Was vor dem ersten Gespräch meistens gefragt wird</h2>
+    <h2>Fragen, die vor dem ersten Gespräch naheliegen</h2>
 
     <div class="faq">
       <details>
@@ -1554,11 +1563,11 @@ section{
       </details>
       <details>
         <summary>Brauchen wir Vorkenntnisse oder Sportkleidung?</summary>
-        <div class="answer"><p>Weder noch. Wir arbeiten in normaler Arbeitskleidung, weil Sie im Alltag auch nichts anderes anhaben. Alle Übungen sind so aufgebaut, dass körperliche Voraussetzungen keine Rolle spielen.</p></div>
+        <div class="answer"><p>Weder noch. Wir arbeiten in normaler Arbeitskleidung, weil Sie im Alltag auch nichts anderes anhaben. Die Übungen lassen sich an unterschiedliche körperliche Voraussetzungen anpassen. Wenn bei Ihnen oder im Team gesundheitliche Einschränkungen bestehen, sagen Sie mir das vorher, dann richte ich den Ablauf danach aus.</p></div>
       </details>
       <details>
         <summary>Wie schnell ist ein Termin möglich?</summary>
-        <div class="answer"><p>Das Erstgespräch meistens innerhalb einer Woche. Für den Trainingstag rechnen Sie mit einigen Wochen Vorlauf, weil ich Ihre Situation vorher kennen möchte.</p></div>
+        <div class="answer"><p>Einen Termin für das Erstgespräch biete ich Ihnen innerhalb einer Woche an. Für den Trainingstag rechnen Sie mit einigen Wochen Vorlauf, weil ich Ihre Situation vorher kennen möchte.</p></div>
       </details>
     </div>
   </div>
@@ -1659,7 +1668,7 @@ section{
         Aktuell mailto-Fallback. Für den Livebetrieb action auf Formspree
         oder das WPForms-Endpoint umstellen und method="post" belassen.
       -->
-      <form class="form" action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain">
+      <form class="form" id="anfrage" action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain">
         <div class="field-row">
           <div class="field">
             <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -1824,9 +1833,15 @@ section{
 </footer>
 
 <!-- Mobiler Dauer-CTA -->
+<!--
+  Auf dem Handy steht das Formular rund 940 px unterhalb von #kontakt,
+  der Sprung landete also im Fliesstext. Der Dauer-CTA zielt deshalb
+  direkt auf das Formular. Nav und Hero bleiben auf #kontakt, dort ist
+  die Einordnung vor dem Formular gewollt.
+-->
 <div class="mcta">
   <span>20 Minuten, kostenlos</span>
-  <a class="btn btn-gold btn-sm" href="#kontakt">Erstgespräch</a>
+  <a class="btn btn-gold btn-sm" href="#anfrage">Erstgespräch</a>
 </div>
 
 </body>

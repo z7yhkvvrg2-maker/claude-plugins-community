@@ -15,7 +15,7 @@ denselben Farben, Schriften und Zeichen wie die Homepage.
 ## Bauen
 
 ```bash
-python3 card/trace_assets.py    # nur nötig, wenn sich das Logo ändert
+python3 ../trace_assets.py      # nur nötig, wenn sich das Logo ändert
 python3 card/build_card.py      # erzeugt card/karte.html
 node card/render_card.js        # erzeugt PDF und Kontrollbilder
 ```

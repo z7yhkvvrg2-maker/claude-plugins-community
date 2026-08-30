@@ -60,11 +60,14 @@
   transition:color .16s ease,border-color .16s ease;
 }
 .nav-links a:hover{color:var(--on-dark);border-bottom-color:var(--gold)}
-.nav-cta{display:none}
+/* Spezifitaet muss ueber .btn liegen. Steht hier nur .nav-cta, gewinnt
+   das spaetere .btn{display:inline-flex} bei gleicher Spezifitaet, und
+   der Nav-Button erscheint auf dem Handy zusaetzlich zum Dauer-CTA. */
+.nav .nav-cta{display:none}
 
 @media (min-width:900px){
   .nav-links{display:flex}
-  .nav-cta{display:inline-flex}
+  .nav .nav-cta{display:inline-flex}
 }
 
 /* ---------- Buttons ---------- */
@@ -109,7 +112,7 @@
   font-size:14.5px;
   text-decoration:none;
   color:var(--gold-d);
-  border-bottom:1px solid rgba(138,116,51,.4);
+  border-bottom:1px solid rgba(125,105,46,.45);
 }
 .tlink:hover{border-bottom-color:var(--gold-d)}
 .s-navy .tlink,.s-navyd .tlink{color:var(--gold);border-bottom-color:rgba(184,160,92,.45)}
@@ -322,9 +325,9 @@
   background:var(--bone);
   border-left:2px solid var(--gold-d);
   border-radius:0 var(--r) var(--r) 0;
-  font-size:14.5px;
-  line-height:1.55;
-  color:var(--ink-2);
+  font-size:16.5px;
+  line-height:1.6;
+  color:var(--ink);
 }
 .s-bone .disclaimer{background:var(--bone-d)}
 
