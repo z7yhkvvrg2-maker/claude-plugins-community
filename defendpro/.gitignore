@@ -3,3 +3,7 @@ shots/
 package-lock.json
 audit.py
 card/shots/
+
+# Arbeitsverzeichnisse der Analyse-Agenten, keine Projektdateien
+_ux/
+_scratch/
