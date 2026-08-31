@@ -60,34 +60,6 @@
   transition:color .16s ease,border-color .16s ease;
 }
 .nav-links a:hover{color:var(--on-dark);border-bottom-color:var(--gold)}
-/* Telefon in der Navigation. Anders als der CTA bleibt es auf dem Handy
-   stehen: Antippen und anrufen ist dort der kuerzeste Weg zum Gespraech,
-   und institutionelle Kunden rufen an, statt Formulare auszufuellen.
-   Erscheint nur, wenn in kontakt.json eine Nummer steht. */
-.nav-tel{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  min-height:44px;
-  padding:0 4px;
-  font-size:14.5px;
-  font-weight:700;
-  letter-spacing:-.005em;
-  color:var(--on-dark);
-  text-decoration:none;
-  white-space:nowrap;
-  margin-left:auto;
-}
-.nav-tel::before{
-  content:"";
-  width:15px;height:15px;flex:none;
-  background-color:var(--gold);
-  -webkit-mask:var(--tel-icon) no-repeat center / contain;
-          mask:var(--tel-icon) no-repeat center / contain;
-}
-.nav-tel:hover{color:var(--gold)}
-@media (min-width:900px){.nav-tel{margin-left:0;font-size:15px}}
-
 /* Spezifitaet muss ueber .btn liegen. Steht hier nur .nav-cta, gewinnt
    das spaetere .btn{display:inline-flex} bei gleicher Spezifitaet, und
    der Nav-Button erscheint auf dem Handy zusaetzlich zum Dauer-CTA. */

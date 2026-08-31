@@ -109,17 +109,13 @@ python3 build.py
 ```
 
 Der Build sagt danach, wie viele Angaben noch offen sind, und weist
-gesondert auf die zwei teuersten hin.
+gesondert auf den teuersten hin.
 
 Ein leeres Feld erscheint auf der Seite als gelbe Marke, damit nichts
-unbemerkt live geht. Telefonnummer, LinkedIn und Instagram verschwinden
-dagegen vollständig aus Navigation und Fußzeile, solange sie leer sind.
-Eine Marke im Seitengerüst wäre hässlicher als eine fehlende Zeile, und
-im Kontaktblock steht sie ohnehin.
+unbemerkt live geht.
 
 | Feld | Wirkt auf |
 |---|---|
-| `telefon`, `telefon_anzeige` | Navigation, Kontaktblock, Fußzeile |
 | `anschrift` | Impressum und Verantwortlicher |
 | `gewerbewortlaut`, `gisa`, `behoerde` | Impressum |
 | `hosting` | Datenschutzerklärung |
@@ -131,10 +127,22 @@ Zwei Punkte liegen außerhalb von `kontakt.json`:
 - [ ] Amazon-Link auf die kanonische Form `amazon.de/dp/ASIN` wechseln
 - [ ] Datenschutzerklärung anpassen, sobald ein Formulardienst gesetzt ist
 
-**Die Telefonnummer ist der wichtigste Eintrag.** Institutionelle Kunden
-rufen an, statt Formulare auszufüllen. Ohne Nummer hat ein Interessent
-genau einen Kanal, und der ist eine E-Mail-Adresse zum Abtippen. Auf dem
-Handy steht die Nummer als antippbarer Link direkt in der Navigation.
+## Keine Telefonnummer, und warum
+
+Auf der Seite steht bewusst keine Telefonnummer. Sie wird aus
+Sicherheitsgründen auf keinem öffentlichen Material geführt und nur
+persönlich per E-Mail weitergegeben. Eine einmal veröffentlichte
+Mobilnummer lässt sich nicht zurückholen.
+
+Das ist eine Entscheidung, kein offener Punkt. `kontakt.json` hat
+deshalb kein Telefonfeld, und im Markup gibt es keine Stelle dafür. Wer
+das ändert, hebt die Entscheidung auf.
+
+**Damit trägt das Formular allein.** Ohne Telefon ist es neben der
+E-Mail-Adresse der einzige Weg zu Defend Pro. Solange
+`formular_endpoint` leer ist, läuft es auf den `mailto`-Fallback und
+liefert nichts zuverlässig aus. Das ist der teuerste offene Punkt der
+ganzen Seite.
 
 ## Technische Hinweise
 

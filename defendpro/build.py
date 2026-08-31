@@ -76,10 +76,12 @@ def kontaktfelder() -> dict:
     """Baut aus kontakt.json die Textbausteine der Seite.
 
     Ein leeres Feld erscheint als gelbe Marke, damit es beim Livegang
-    auffaellt. Telefon, LinkedIn und Instagram verschwinden dagegen
-    vollstaendig aus Navigation und Fusszeile, solange sie leer sind:
-    eine Marke im Seitengeruest waere haesslicher als eine fehlende
-    Zeile, und im Kontaktblock steht sie ohnehin.
+    auffaellt.
+
+    Eine Telefonnummer gibt es hier bewusst nicht. Sie steht aus
+    Sicherheitsgruenden auf keinem oeffentlichen Material und wird nur
+    persoenlich per E-Mail weitergegeben. Wer sie hier wieder einbaut,
+    hebt diese Entscheidung auf.
     """
     cfg = json.loads((ROOT / "kontakt.json").read_text(encoding="utf-8"))
     g = lambda k: str(cfg.get(k, "")).strip()
@@ -89,7 +91,6 @@ def kontaktfelder() -> dict:
         v = g(key)
         return esc(v) if v else f'<span class="todo">[{label}]</span>'
 
-    tel, tel_txt = g("telefon"), g("telefon_anzeige") or g("telefon")
     li, ig = g("linkedin_url"), g("instagram_url")
     endpoint = g("formular_endpoint")
 
@@ -100,11 +101,6 @@ def kontaktfelder() -> dict:
         "BEHOERDE": feld("behoerde", "zuständige Bezirksverwaltungsbehörde einsetzen"),
         "HOSTING": feld("hosting", "Hosting-Anbieter einsetzen"),
 
-        "TELEFON_NAV": (f'<a class="nav-tel" href="tel:{esc(tel)}">{esc(tel_txt)}</a>' if tel else ""),
-        "TELEFON_KONTAKT": (
-            f'<div>Telefon: <a href="tel:{esc(tel)}">{esc(tel_txt)}</a></div>' if tel
-            else '<div>Telefon: <span class="todo">[Telefonnummer einsetzen]</span></div>'),
-        "TELEFON_FOOTER": (f'<li><a href="tel:{esc(tel)}">{esc(tel_txt)}</a></li>' if tel else ""),
 
         "LINKEDIN_KONTAKT": (
             f'<div>LinkedIn: <a href="{esc(li)}" rel="noopener">{esc(g("linkedin_text") or li)}</a></div>' if li
@@ -119,7 +115,6 @@ def kontaktfelder() -> dict:
         "FORM_ACTION": (f'action="{esc(endpoint)}" method="post"' if endpoint
                         else 'action="mailto:matthias.gastgeb@defendpro.at" method="post" enctype="text/plain"'),
         "_endpoint_gesetzt": bool(endpoint),
-        "_telefon_gesetzt": bool(tel),
     }
 
 
@@ -156,8 +151,6 @@ def main() -> None:
     offen = html.count('class="todo"')
     print()
     print(f"offene Angaben aus kontakt.json: {offen}")
-    if not felder["_telefon_gesetzt"]:
-        print("  ! keine Telefonnummer. Fuer institutionelle Kunden der schnellste Kanal.")
     if not felder["_endpoint_gesetzt"]:
         print("  ! Formular laeuft auf mailto und liefert nichts zuverlaessig aus.")
     if offen == 0 and felder["_endpoint_gesetzt"]:
