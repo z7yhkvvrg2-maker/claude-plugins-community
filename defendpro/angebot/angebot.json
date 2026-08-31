@@ -1,0 +1,40 @@
+{
+  "_hinweis": "Eine Datei je Angebot. Ausfüllen, dann 'python3 angebot/build_angebot.py' und 'node angebot/render_angebot.js'. Firmendaten kommen aus ../kontakt.json und werden hier nicht wiederholt.",
+
+  "angebotsnummer": "2026-001",
+  "datum": "2026-08-30",
+  "gueltig_bis": "2026-09-30",
+  "_gueltig_bis": "Bindefrist. Ohne Frist ist ein Angebot nach ABGB grundsätzlich befristet bindend, mit Frist ist es eindeutig. Ihre Entscheidung, üblich sind vier Wochen.",
+
+  "empfaenger_haus": "",
+  "empfaenger_person": "",
+  "empfaenger_funktion": "",
+  "empfaenger_anschrift": "",
+
+  "betreff": "Training Prävention und Deeskalation",
+  "einleitung": "",
+  "_einleitung": "Zwei bis drei Sätze aus dem Erstgespräch. Was Sie dort gehört haben, in deren Worten. Leer lassen setzt einen neutralen Satz.",
+
+  "positionen": [
+    {
+      "bezeichnung": "Workshop, Halbtag",
+      "beschreibung": "Rollenbezogenes Training an Situationen aus Ihrem Haus. Wahrnehmen, ansprechen, Grenzen setzen, Position verändern, Hilfe holen.",
+      "menge": 1,
+      "einheit": "Termin",
+      "preis": 0
+    }
+  ],
+  "_positionen": "preis ist der Nettobetrag je Einheit in Euro. Weitere Positionen als weitere Objekte in der Liste.",
+
+  "teilnehmerzahl": "bis 16 Personen",
+  "termin": "nach Vereinbarung",
+  "ort": "in Ihrem Haus",
+
+  "ust_modus": "kleinunternehmer",
+  "_ust_modus": "'kleinunternehmer' oder ein Steuersatz als Zahl, z. B. 20. Welche Regelung für Sie gilt, klärt die Wirtschaftskammer oder Ihre Steuerberatung. Nicht raten.",
+
+  "anreise_enthalten": true,
+  "zahlungsziel_tage": 14,
+  "storno_frist_tage": 14,
+  "_storno": "Zahlungsziel und Stornofrist sind Vorschläge, keine geprüften Klauseln. Vor dem ersten Angebot einmal von der WKO oder einer Juristin ansehen lassen."
+}

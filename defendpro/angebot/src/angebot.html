@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+<meta charset="utf-8">
+<title>Defend Pro Angebot</title>
+<style>
+/* ============================================================
+   DEFEND PRO . Angebot
+   A4, mehrseitig erlaubt. Anders als Website und Einseiter ist das
+   ein Vertragsdokument: es wird ausgedruckt, abgelegt, weitergereicht
+   und im Zweifel Jahre spaeter wieder gelesen.
+   ============================================================ */
+
+/* Statische Schnitte, kein Variable Font. Chromium bettet einen
+   Variable Font nicht ins PDF ein, siehe card/README.md. */
+@font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:block;src:url({{FONT_400}}) format("woff2")}
+@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:block;src:url({{FONT_600}}) format("woff2")}
+@font-face{font-family:Inter;font-style:normal;font-weight:700;font-display:block;src:url({{FONT_700}}) format("woff2")}
+@font-face{font-family:Inter;font-style:normal;font-weight:800;font-display:block;src:url({{FONT_800}}) format("woff2")}
+
+:root{
+  --navy:#172A4E;
+  --navy-d:#0F1E3A;
+  --bone:#FAF7F2;
+  --bone-d:#F1ECE3;
+  --gold:#B8A05C;
+  --gold-d:#7D692E;
+  --ink:#172A4E;
+  --ink-2:#4A5872;
+  --on-dark-2:#C3CBD9;
+  --line:rgba(23,42,78,.18);
+  --pad:20mm;
+  --logo:url("{{LOGO}}");
+  --emblem:url("{{EMBLEM}}");
+}
+
+@page{ size:A4; margin:0 }
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  width:210mm;
+  background:#fff;
+  font-family:Inter,sans-serif;
+  color:var(--ink);
+  font-size:9.4pt;
+  line-height:1.55;
+  -webkit-print-color-adjust:exact;
+          print-color-adjust:exact;
+}
+
+/* ---------- Kopf ---------- */
+
+.head{
+  position:relative;
+  overflow:hidden;
+  background:var(--navy);
+  color:#fff;
+  padding:12mm var(--pad) 10mm;
+}
+.head::after{
+  content:"";
+  position:absolute;
+  right:-12mm; top:50%;
+  transform:translateY(-50%);
+  width:48mm; aspect-ratio:300/317;
+  background-color:var(--gold);
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
+  opacity:.12;
+}
+.head > *{position:relative;z-index:1}
+.logo{
+  width:40mm; aspect-ratio:480/105;
+  background-color:#fff;
+  -webkit-mask:var(--logo) no-repeat left center / contain;
+          mask:var(--logo) no-repeat left center / contain;
+  margin-bottom:7mm;
+}
+.head h1{
+  font-size:19pt;font-weight:800;letter-spacing:-.03em;line-height:1.1;
+  margin-bottom:2mm;
+}
+.head .betreff{font-size:10pt;font-weight:600;color:#fff}
+.head .meta{
+  margin-top:6mm;padding-top:4mm;
+  border-top:.3mm solid rgba(255,255,255,.2);
+  display:flex;gap:10mm;flex-wrap:wrap;
+  font-size:7.8pt;color:var(--on-dark-2);
+}
+.head .meta b{display:block;color:#fff;font-weight:600;font-size:8.6pt;margin-top:.6mm}
+
+/* ---------- Körper ---------- */
+
+main{padding:10mm var(--pad) 0}
+section{margin-bottom:8mm;break-inside:avoid}
+
+h2{
+  font-size:7.2pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-d);margin-bottom:3mm;
+  display:flex;align-items:center;gap:2.5mm;
+}
+h2::before{content:"";width:6mm;height:.4mm;background:currentColor;flex:none}
+
+p{margin-bottom:2.5mm;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+
+.empfaenger{font-size:9.6pt;line-height:1.6;color:var(--ink)}
+.empfaenger b{font-weight:700}
+
+/* Positionen */
+table{width:100%;border-collapse:collapse}
+th{
+  text-align:left;font-size:7.2pt;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);
+  padding:0 0 2mm;border-bottom:.4mm solid var(--navy);
+}
+th.r,td.r{text-align:right}
+td{padding:3mm 0;border-bottom:.2mm solid var(--line);vertical-align:top}
+td .bez{font-weight:700;color:var(--ink);font-size:9.6pt}
+td .besch{font-size:8.4pt;color:var(--ink-2);margin-top:1mm;line-height:1.45}
+td.r{white-space:nowrap;padding-left:6mm}
+
+.summe{margin-top:4mm;display:flex;justify-content:flex-end}
+.summe table{width:auto;min-width:75mm}
+.summe td{border:0;padding:1.2mm 0}
+.summe td.r{font-variant-numeric:tabular-nums}
+.summe tr.total td{
+  border-top:.4mm solid var(--navy);padding-top:2.5mm;
+  font-size:11pt;font-weight:800;color:var(--ink);
+}
+.ust-hinweis{margin-top:2.5mm;font-size:7.8pt;color:var(--ink-2)}
+
+/* Zweispaltige Angaben */
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+.zwei dl{font-size:8.8pt}
+.zwei dt{font-size:7.2pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-top:2.5mm}
+.zwei dt:first-child{margin-top:0}
+.zwei dd{color:var(--ink);font-weight:600}
+
+ul{list-style:none}
+li{position:relative;padding-left:5mm;margin-bottom:1.5mm;color:var(--ink-2)}
+li:last-child{margin-bottom:0}
+li::before{
+  content:"";position:absolute;left:0;top:1.3mm;
+  width:3mm;height:3.2mm;
+  background-color:var(--gold-d);
+  -webkit-mask:var(--emblem) no-repeat center / contain;
+          mask:var(--emblem) no-repeat center / contain;
+}
+
+.hinweis{
+  background:var(--bone-d);
+  border-left:.7mm solid var(--gold-d);
+  padding:3mm 4mm;
+  font-size:8.4pt;line-height:1.5;color:var(--ink-2);
+}
+.hinweis b{color:var(--ink)}
+
+/* Annahme */
+.annahme{
+  border:.4mm solid var(--navy);
+  border-radius:1mm;
+  padding:5mm;
+  break-inside:avoid;
+}
+.annahme .sig{display:grid;grid-template-columns:1fr 1fr;gap:10mm;margin-top:12mm}
+.annahme .sig div{border-top:.3mm solid var(--ink);padding-top:1.5mm;font-size:7.6pt;color:var(--ink-2)}
+
+/* ---------- Fuß ---------- */
+
+footer{
+  margin-top:10mm;
+  background:var(--navy-d);
+  color:var(--on-dark-2);
+  padding:6mm var(--pad);
+  font-size:7.4pt;
+  line-height:1.55;
+  display:flex;
+  justify-content:space-between;
+  gap:8mm;
+  break-inside:avoid;
+}
+footer b{color:#fff;font-weight:600;display:block}
+footer .r{text-align:right}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="logo"></div>
+  <h1>Angebot</h1>
+  <p class="betreff">{{BETREFF}}</p>
+  <div class="meta">
+    <span>Angebotsnummer<b>{{NUMMER}}</b></span>
+    <span>Datum<b>{{DATUM}}</b></span>
+    <span>Gültig bis<b>{{GUELTIG}}</b></span>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2>Für</h2>
+    <p class="empfaenger">{{EMPFAENGER}}</p>
+  </section>
+
+  <section>
+    <p>{{EINLEITUNG}}</p>
+  </section>
+
+  <section>
+    <h2>Leistung</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th class="r">Menge</th>
+          <th class="r">Einzel</th>
+          <th class="r">Summe</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{POSITIONEN}}
+      </tbody>
+    </table>
+
+    <div class="summe">
+      <table>
+        {{SUMME}}
+      </table>
+    </div>
+    <p class="ust-hinweis">{{UST_HINWEIS}}</p>
+  </section>
+
+  <section>
+    <h2>Rahmen</h2>
+    <div class="zwei">
+      <dl>
+        <dt>Teilnehmerzahl</dt><dd>{{TEILNEHMER}}</dd>
+        <dt>Ort</dt><dd>{{ORT}}</dd>
+      </dl>
+      <dl>
+        <dt>Termin</dt><dd>{{TERMIN}}</dd>
+        <dt>Anreise</dt><dd>{{ANREISE}}</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section>
+    <h2>Enthalten</h2>
+    <ul>
+      <li>Abstimmung vorab, damit die Übungen zu Ihren Rollen und Situationen passen.</li>
+      <li>Durchführung vor Ort, in normaler Arbeitskleidung, ohne Vorkenntnisse.</li>
+      <li>Kurze schriftliche Zusammenfassung der vereinbarten Abläufe nach dem Termin.</li>
+      <li>Rückfragen per E-Mail in den vier Wochen danach.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Nicht enthalten</h2>
+    <ul>
+      <li>Eine gesetzliche Arbeitsplatzevaluierung, eine Rechtsprüfung oder eine Zertifizierung.</li>
+      <li>Raum und Ausstattung. Sie brauchen einen Raum, in dem sich die Gruppe bewegen kann.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Teilnahme</h2>
+    <p>Die Teilnahme ist freiwillig. Gesundheitliche Einschränkungen teilen Sie mir vorab mit, dann passe ich den Ablauf an oder lasse einzelne Übungen weg. Die Übungen lassen sich an unterschiedliche körperliche Voraussetzungen anpassen.</p>
+  </section>
+
+  <section>
+    <p class="hinweis"><b>Abgrenzung.</b> Der Safety Check ist ausdrücklich keine gesetzliche Arbeitsplatzevaluierung, keine Rechtsprüfung und keine Zertifizierung. Er ersetzt keine dieser Leistungen. Dasselbe gilt für das Training.</p>
+  </section>
+
+  <section>
+    <h2>Konditionen</h2>
+    <div class="zwei">
+      <dl>
+        <dt>Zahlung</dt><dd>{{ZAHLUNG}}</dd>
+        <dt>Bindefrist</dt><dd>bis {{GUELTIG}}</dd>
+      </dl>
+      <dl>
+        <dt>Storno</dt><dd>{{STORNO}}</dd>
+        <dt>Ausfall meinerseits</dt><dd>Ersatztermin oder volle Rückerstattung</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="annahme">
+    <h2>Annahme</h2>
+    <p>Mit Ihrer Unterschrift nehmen Sie dieses Angebot an. Ein Scan per E-Mail genügt.</p>
+    <div class="sig">
+      <div>Ort, Datum</div>
+      <div>Unterschrift und Firmenstempel</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>
+    <b>Defend Pro, Matthias Gastgeb</b>
+    {{FIRMA_ANSCHRIFT}}<br>
+    {{FIRMA_GEWERBE}}
+  </span>
+  <span class="r">
+    <b>matthias.gastgeb@defendpro.at</b>
+    defendpro.at<br>
+    {{FIRMA_GISA}}
+  </span>
+</footer>
+
+</body>
+</html>
