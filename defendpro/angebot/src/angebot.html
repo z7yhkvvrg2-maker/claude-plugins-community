@@ -246,32 +246,15 @@ footer .r{text-align:right}
     </div>
   </section>
 
-  <section>
-    <h2>Enthalten</h2>
-    <ul>
-      <li>Abstimmung vorab, damit die Übungen zu Ihren Rollen und Situationen passen.</li>
-      <li>Durchführung vor Ort, in normaler Arbeitskleidung, ohne Vorkenntnisse.</li>
-      <li>Kurze schriftliche Zusammenfassung der vereinbarten Abläufe nach dem Termin.</li>
-      <li>Rückfragen per E-Mail in den vier Wochen danach.</li>
-    </ul>
-  </section>
+  {{ENTHALTEN_BLOCK}}
 
-  <section>
-    <h2>Nicht enthalten</h2>
-    <ul>
-      <li>Eine gesetzliche Arbeitsplatzevaluierung, eine Rechtsprüfung oder eine Zertifizierung.</li>
-      <li>Raum und Ausstattung. Sie brauchen einen Raum, in dem sich die Gruppe bewegen kann.</li>
-    </ul>
-  </section>
+  {{NICHT_BLOCK}}
 
-  <section>
-    <h2>Teilnahme</h2>
-    <p>Die Teilnahme ist freiwillig. Gesundheitliche Einschränkungen teilen Sie mir vorab mit, dann passe ich den Ablauf an oder lasse einzelne Übungen weg. Die Übungen lassen sich an unterschiedliche körperliche Voraussetzungen anpassen.</p>
-  </section>
+  {{BEREITSTELLUNG_BLOCK}}
 
-  <section>
-    <p class="hinweis"><b>Abgrenzung.</b> Der Safety Check ist ausdrücklich keine gesetzliche Arbeitsplatzevaluierung, keine Rechtsprüfung und keine Zertifizierung. Er ersetzt keine dieser Leistungen. Dasselbe gilt für das Training.</p>
-  </section>
+  {{TEILNAHME_BLOCK}}
+
+  {{ABGRENZUNG_BLOCK}}
 
   <section>
     <h2>Konditionen</h2>
@@ -279,9 +262,10 @@ footer .r{text-align:right}
       <dl>
         <dt>Zahlung</dt><dd>{{ZAHLUNG}}</dd>
         <dt>Bindefrist</dt><dd>bis {{GUELTIG}}</dd>
+        <dt>Aufnahmen</dt><dd>{{BILDAUFNAHMEN}}</dd>
       </dl>
       <dl>
-        <dt>Storno</dt><dd>{{STORNO}}</dd>
+        <dt>Storno und Verschiebung</dt><dd>{{STORNO}}</dd>
         <dt>Ausfall meinerseits</dt><dd>Ersatztermin oder volle Rückerstattung</dd>
       </dl>
     </div>

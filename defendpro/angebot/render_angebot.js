@@ -23,12 +23,22 @@ const PDF = path.join(DIR, 'defendpro_angebot.pdf');
 const SHOTS = path.join(DIR, 'shots');
 const MM = 96 / 25.4;
 
-const PFLICHT = [
+// Pflichtklauseln haengen von der Angebotsart ab. Ein Vortrag ohne
+// Uebungen braucht keinen Gesundheitshinweis, und die Abgrenzung zum
+// Safety Check gehoert nur in Angebote, die einen enthalten koennen.
+// Vorher verlangte die Pruefung beides immer und haette ein korrektes
+// Vortragsangebot abgelehnt.
+const IMMER = [
+  ['Bindefrist', 'Gültig bis'],
+  ['Annahme', 'Unterschrift'],
+  ['Storno', 'Storno und Verschiebung'],
+  ['Ausfall meinerseits', 'Ausfall meinerseits'],
+  ['Aufnahmen geregelt', 'Aufnahmen'],
+];
+const NUR_TRAINING = [
   ['Abgrenzung Safety Check', 'keine gesetzliche Arbeitsplatzevaluierung'],
   ['Teilnahme freiwillig', 'Die Teilnahme ist freiwillig'],
   ['Gesundheitshinweis', 'Gesundheitliche Einschränkungen'],
-  ['Bindefrist', 'Gültig bis'],
-  ['Annahme', 'Unterschrift'],
 ];
 
 const GESPERRT = ['polizei', 'blaulicht', 'exekutive', 'einsatzorganisation',
@@ -47,6 +57,12 @@ const GESPERRT = ['polizei', 'blaulicht', 'exekutive', 'einsatzorganisation',
   await page.goto(FILE, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
 
+  // Die Art steht in der Angebotsdatei, nicht im HTML.
+  const datei = process.argv[2] || path.join(DIR, 'angebot.json');
+  const art = (JSON.parse(fs.readFileSync(datei, 'utf8')).art || 'training').toLowerCase();
+  const PFLICHT = art === 'vortrag' ? IMMER : IMMER.concat(NUR_TRAINING);
+  console.log(`Angebotsart: ${art}`);
+
   await page.pdf({
     path: PDF, format: 'A4',
     margin: { top: 0, right: 0, bottom: 0, left: 0 },
@@ -56,7 +72,12 @@ const GESPERRT = ['polizei', 'blaulicht', 'exekutive', 'einsatzorganisation',
   const raw = fs.readFileSync(PDF).toString('latin1');
   const seiten = (raw.match(/\/Type\s*\/Page[^s]/g) || []).length;
   const fonts = raw.split('/FontFile2').length - 1;
+  // innerText liefert den Text NACH text-transform. Die dt-Elemente der
+  // Konditionen stehen auf uppercase, eine Suche nach der Originalschreibweise
+  // fand sie deshalb nicht. Beide Seiten kleinschreiben loest das, und
+  // innerText bleibt richtig: eine unsichtbare Klausel schuetzt niemanden.
   const text = await page.evaluate(() => document.body.innerText);
+  const hay = text.toLowerCase();
 
   console.log(`PDF        A4, ${(fs.statSync(PDF).size / 1024).toFixed(1)} KB, ${seiten} Seite(n)`);
   console.log(`Schriften  ${fonts} Subsets als /FontFile2 eingebettet`);
@@ -65,13 +86,12 @@ const GESPERRT = ['polizei', 'blaulicht', 'exekutive', 'einsatzorganisation',
   console.log('\nPflichtinhalte:');
   const fehlend = [];
   for (const [label, needle] of PFLICHT) {
-    const da = text.includes(needle);
+    const da = hay.includes(needle.toLowerCase());
     console.log(`  ${da ? 'vorhanden' : 'FEHLT   '}  ${label}`);
     if (!da) fehlend.push(label);
   }
 
-  const low = text.toLowerCase();
-  const treffer = GESPERRT.filter(w => low.includes(w));
+  const treffer = GESPERRT.filter(w => hay.includes(w));
   console.log(`\nGesperrte Bezeichnungen: ${treffer.length ? treffer.join(', ') : 'keine'}`);
 
   // Offene Platzhalter aus den Datendateien

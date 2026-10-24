@@ -1,20 +1,20 @@
 {
   "_hinweis": "Eine Datei je Angebot. Ausfüllen, dann 'python3 angebot/build_angebot.py' und 'node angebot/render_angebot.js'. Firmendaten kommen aus ../kontakt.json und werden hier nicht wiederholt.",
-
   "angebotsnummer": "2026-001",
-  "datum": "2026-08-30",
-  "gueltig_bis": "2026-09-30",
+  "datum": "2026-10-24",
+  "gueltig_bis": "2026-11-21",
   "_gueltig_bis": "Bindefrist. Ohne Frist ist ein Angebot nach ABGB grundsätzlich befristet bindend, mit Frist ist es eindeutig. Ihre Entscheidung, üblich sind vier Wochen.",
-
   "empfaenger_haus": "",
   "empfaenger_person": "",
   "empfaenger_funktion": "",
   "empfaenger_anschrift": "",
-
+  "anrede": "",
+  "_anrede": "Vollständige Anrede, z. B. 'Sehr geehrte Frau Doktor Bauer'. Leer lassen setzt 'Sehr geehrte Damen und Herren'.",
   "betreff": "Training Prävention und Deeskalation",
+  "art": "training",
+  "_art": "'training' oder 'vortrag'. Steuert die Pflichtklauseln: ein Vortrag ohne Übungen braucht weder den Gesundheitshinweis noch die Safety-Check-Abgrenzung, ein Training beides. render_angebot.js prüft entsprechend.",
   "einleitung": "",
   "_einleitung": "Zwei bis drei Sätze aus dem Erstgespräch. Was Sie dort gehört haben, in deren Worten. Leer lassen setzt einen neutralen Satz.",
-
   "positionen": [
     {
       "bezeichnung": "Workshop, Halbtag",
@@ -25,16 +25,19 @@
     }
   ],
   "_positionen": "preis ist der Nettobetrag je Einheit in Euro. Weitere Positionen als weitere Objekte in der Liste.",
-
   "teilnehmerzahl": "bis 16 Personen",
   "termin": "nach Vereinbarung",
   "ort": "in Ihrem Haus",
-
   "ust_modus": "kleinunternehmer",
   "_ust_modus": "'kleinunternehmer' oder ein Steuersatz als Zahl, z. B. 20. Welche Regelung für Sie gilt, klärt die Wirtschaftskammer oder Ihre Steuerberatung. Nicht raten.",
-
   "anreise_enthalten": true,
   "zahlungsziel_tage": 14,
   "storno_frist_tage": 14,
-  "_storno": "Zahlungsziel und Stornofrist sind Vorschläge, keine geprüften Klauseln. Vor dem ersten Angebot einmal von der WKO oder einer Juristin ansehen lassen."
+  "_storno": "Zahlungsziel und Stornofrist sind Vorschläge, keine geprüften Klauseln. Vor dem ersten Angebot einmal von der WKO oder einer Juristin ansehen lassen.",
+  "storno_satz_danach": 50,
+  "_storno_satz_danach": "Prozentsatz des Honorars, der nach Ablauf der Frist verrechnet wird.",
+  "bereitstellung": "",
+  "_bereitstellung": "Was der Kunde stellt. Bei einem Vortrag z. B. 'Raum, Beamer und Mikrofon'. Leer lassen blendet den Abschnitt aus.",
+  "bildaufnahmen": "nach vorheriger Absprache",
+  "_bildaufnahmen": "Foto-, Ton- und Videoaufnahmen. Mögliche Werte: 'nach vorheriger Absprache', 'nicht gestattet', 'gestattet'. Bei Veranstaltungen mit Presse oder Nachbericht vorher klären, nicht am Veranstaltungstag."
 }

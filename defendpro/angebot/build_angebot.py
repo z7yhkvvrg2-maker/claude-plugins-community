@@ -118,11 +118,62 @@ def main() -> None:
     einleitung = g(a, "einleitung") or (
         "vielen Dank für das Gespräch. Auf dieser Grundlage habe ich Ihnen "
         "das folgende Angebot zusammengestellt.")
-    anrede = f"Sehr geehrte Damen und Herren,<br><br>" if not g(a, "empfaenger_person") else \
-             f"Guten Tag {esc(g(a, 'empfaenger_person'))},<br><br>"
+    # Anrede nicht aus dem Namen raten. Wer sie setzen will, setzt sie.
+    anrede = esc(g(a, "anrede")) or "Sehr geehrte Damen und Herren"
+    anrede = f"{anrede},<br><br>"
 
     zahlungsziel = int(a.get("zahlungsziel_tage", 14))
     storno = int(a.get("storno_frist_tage", 14))
+    satz = int(a.get("storno_satz_danach", 50))
+
+    # Die Angebotsart steuert, welche Klauseln gehoeren. Ein Vortrag ohne
+    # Uebungen braucht keinen Gesundheitshinweis, und die Abgrenzung zum
+    # Safety Check gehoert nur in Angebote, die einen enthalten koennen.
+    art = g(a, "art", "training").lower()
+    if art not in ("training", "vortrag"):
+        raise SystemExit(f"art muss 'training' oder 'vortrag' sein, nicht {art!r}")
+
+    teilnahme = "" if art == "vortrag" else (
+        "<section><h2>Teilnahme</h2><p>Die Teilnahme ist freiwillig. Gesundheitliche "
+        "Einschränkungen teilen Sie mir vorab mit, dann passe ich den Ablauf an oder lasse "
+        "einzelne Übungen weg. Die Übungen lassen sich an unterschiedliche körperliche "
+        "Voraussetzungen anpassen.</p></section>")
+
+    abgrenzung = "" if art == "vortrag" else (
+        '<section><p class="hinweis"><b>Abgrenzung.</b> Der Safety Check ist ausdrücklich keine '
+        "gesetzliche Arbeitsplatzevaluierung, keine Rechtsprüfung und keine Zertifizierung. Er "
+        "ersetzt keine dieser Leistungen. Dasselbe gilt für das Training.</p></section>")
+
+    def liste(titel, punkte):
+        li = "".join(f"<li>{esc(x)}</li>" for x in punkte)
+        return f"<section><h2>{titel}</h2><ul>{li}</ul></section>"
+
+    if art == "vortrag":
+        enthalten = liste("Enthalten", [
+            "Abstimmung der Inhalte vorab mit dem Veranstalter.",
+            "Vortrag vor Ort in der vereinbarten Dauer.",
+            "Fragen und Diskussion im Anschluss.",
+            "Rückfragen per E-Mail in den vier Wochen danach.",
+        ])
+        nicht = liste("Nicht enthalten", [
+            "Aufzeichnung oder Verbreitung des Vortrags ohne gesonderte Absprache.",
+            "Schriftliche Unterlagen für die Teilnehmenden, sofern nicht eigens vereinbart.",
+        ])
+    else:
+        enthalten = liste("Enthalten", [
+            "Abstimmung vorab, damit die Übungen zu Ihren Rollen und Situationen passen.",
+            "Durchführung vor Ort, in normaler Arbeitskleidung, ohne Vorkenntnisse.",
+            "Kurze schriftliche Zusammenfassung der vereinbarten Abläufe nach dem Termin.",
+            "Rückfragen per E-Mail in den vier Wochen danach.",
+        ])
+        nicht = liste("Nicht enthalten", [
+            "Eine gesetzliche Arbeitsplatzevaluierung, eine Rechtsprüfung oder eine Zertifizierung.",
+            "Raum und Ausstattung. Sie brauchen einen Raum, in dem sich die Gruppe bewegen kann.",
+        ])
+
+    bereit = g(a, "bereitstellung")
+    bereitstellung = "" if not bereit else (
+        f"<section><h2>Was Sie bereitstellen</h2><p>{esc(bereit)}</p></section>")
 
     ersetzungen = {
         "BETREFF": esc(g(a, "betreff")),
@@ -139,7 +190,13 @@ def main() -> None:
         "TERMIN": esc(g(a, "termin", "nach Vereinbarung")),
         "ANREISE": "im Preis enthalten" if a.get("anreise_enthalten", True) else "wird gesondert verrechnet",
         "ZAHLUNG": f"{zahlungsziel} Tage nach Rechnung, ohne Abzug",
-        "STORNO": f"kostenfrei bis {storno} Tage vor dem Termin",
+        "STORNO": f"kostenfrei bis {storno} Tage vor dem Termin, danach {satz} % des Honorars",
+        "BILDAUFNAHMEN": esc(g(a, "bildaufnahmen", "nach vorheriger Absprache")),
+        "ENTHALTEN_BLOCK": enthalten,
+        "NICHT_BLOCK": nicht,
+        "TEILNAHME_BLOCK": teilnahme,
+        "ABGRENZUNG_BLOCK": abgrenzung,
+        "BEREITSTELLUNG_BLOCK": bereitstellung,
         "FIRMA_ANSCHRIFT": esc(g(firma, "anschrift")) or "[Anschrift in kontakt.json]",
         "FIRMA_GEWERBE": esc(g(firma, "gewerbewortlaut")) or "[Gewerbewortlaut in kontakt.json]",
         "FIRMA_GISA": ("GISA " + esc(g(firma, "gisa"))) if g(firma, "gisa") else "[GISA-Zahl in kontakt.json]",
@@ -162,7 +219,7 @@ def main() -> None:
     OUT.write_text(html, encoding="utf-8")
     print(f"geschrieben: {OUT}")
     print(f"Angebot {g(a, 'angebotsnummer')} an {g(a, 'empfaenger_haus') or '[kein Empfänger]'}")
-    print(f"Positionen: {len(zeilen)}, Nettosumme {euro(netto)} EUR, Modus {ust_modus}")
+    print(f"Art: {art}, Positionen: {len(zeilen)}, Nettosumme {euro(netto)} EUR, Modus {ust_modus}")
     if netto == 0:
         print("  ! Alle Preise stehen auf 0. In angebot.json eintragen.")
     if not any(teile):
